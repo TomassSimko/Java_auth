@@ -10,6 +10,7 @@ public class MainController {
 
     @FXML
     private void clickBtn(ActionEvent actionEvent) {
+
         lbl.setText("Button");
     }
 }

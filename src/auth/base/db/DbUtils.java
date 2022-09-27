@@ -197,60 +197,64 @@ public class DbUtils {
     // TODO: Check password against db hash and hash again
     public static void updatePsw(ActionEvent event,String id, String oldPsw, String newPsw) {
          Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
+         DbConnection cnn = new DbConnection();
+         Connection connection = null;
+         PreparedStatement uExist = null;
+         int set;
 
-        if(oldPsw == null || newPsw == null){
+         if(oldPsw.isEmpty() || newPsw.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Neither old password or new password cannot be empty !");
             alert.show();
-        }
-        // test one
-        var encodedPassword = encoder.encode(oldPsw);
-        System.out.println(encodedPassword);
+            // this is shit needs to display hashed password to user
+        }else if (oldPsw.equals(newPsw)){
+             Alert alert = new Alert(Alert.AlertType.WARNING);
+             alert.setContentText("Old password cannot be same as the old one ");
+             alert.show();
+         }
+         else {
+            // check if old psw != new password
+            // check if password is in db
+            // hash password => send to db
 
-        var validPassword = encoder.matches(oldPsw, encodedPassword);
-        System.out.println(validPassword);
+            var hashedPassword = encoder.encode(oldPsw);
+            System.out.println(hashedPassword);
 
-        DbConnection cnn = new DbConnection();
-        Connection connection = null;
-        PreparedStatement uExist = null;
-        int set;
+            var validPassword = encoder.matches(oldPsw, hashedPassword);
+            System.out.println(validPassword);
 
-//        UPDATE
-//                app_user
-//        SET
-//                passwordHash = @passwordHash
-//                WHERE id = @id;
-        try{
-            connection = cnn.getConnection();
-            uExist = connection.prepareStatement("UPDATE user SET password = ? WHERE id = ?");
-            uExist.setString(1,newPsw);
-            uExist.setString(2,id);
-            set = uExist.executeUpdate();
+            try{
+                connection = cnn.getConnection();
+                uExist = connection.prepareStatement("UPDATE user SET password = ? WHERE id = ?");
+                uExist.setString(1,newPsw);
+                uExist.setString(2,id);
+                set = uExist.executeUpdate();
 
-            if(set > 0) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setContentText("Successfully updated password");
-                alert.show();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Could not update password !");
-                alert.show();
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        } finally {
-            if(uExist != null){
-                try {
-                    uExist.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                if(set > 0) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setContentText("Successfully updated password");
+                    alert.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Could not update password !");
+                    alert.show();
                 }
-            }
-            if(connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
+            }catch(SQLException e){
+                e.printStackTrace();
+            } finally {
+                if(uExist != null){
+                    try {
+                        uExist.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(connection != null){
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

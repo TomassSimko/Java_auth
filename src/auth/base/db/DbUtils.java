@@ -209,7 +209,7 @@ public class DbUtils {
             // this is shit needs to display hashed password to user
         }else if (oldPsw.equals(newPsw)){
              Alert alert = new Alert(Alert.AlertType.WARNING);
-             alert.setContentText("Old password cannot be same as the old one ");
+             alert.setContentText("New password cannot be same as the old one ");
              alert.show();
          }
          else {

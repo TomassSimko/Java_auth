@@ -23,17 +23,5 @@ public class Main extends Application {
         Parent root = loader.load();
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
-        DbConnection cnn = new DbConnection();
-        Connection connection = cnn.getConnection();
-
-        Statement statement = connection.createStatement();
-        ResultSet set = statement.executeQuery("select * from user");
-
-        while(set.next()){
-            System.out.print(set.getString("email"));
-        }
-
-
     }
 }

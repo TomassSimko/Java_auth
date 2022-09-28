@@ -11,9 +11,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ProfileController implements Initializable {
-    public Button delete_user;
-    public Button update_psw;
-    public PasswordField user_new_psw;
+    @FXML
+    private Button delete_user;
+    @FXML
+    private Button update_psw;
+    @FXML
+    private PasswordField user_new_psw;
     @FXML
     private Button btn_logout;
     @FXML
@@ -47,8 +50,9 @@ public class ProfileController implements Initializable {
 
         delete_user.setOnAction(event ->
                 DbUtils.deleteUser(event,user_id.getText()));
-       update_psw.setOnAction(event ->
+        update_psw.setOnAction(event ->
                 DbUtils.updatePsw(event,user_id.getText(),user_psw.getText(),user_new_psw.getText()));
+
     }
 
     @FXML

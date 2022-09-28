@@ -2,6 +2,7 @@ package auth.base.db;
 
 import auth.base.auth.gui.ProfileController;
 import auth.base.models.User;
+import auth.base.models.UserDto;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -20,15 +21,17 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class DbUtils {
-    public static void changeScene(ActionEvent event,String fxmlFile,String id,String email,String password,String firstName,String lastName){
+    public static void changeScene(ActionEvent event, String fxmlFile, UserDto user){
         Parent root = null;
 
-        if(email != null && password != null){
+        // null pointer exception
+        if(user.email != null && user.passwordHash
+                != null){
             try {
                 FXMLLoader loader = new FXMLLoader(DbUtils.class.getResource(fxmlFile));
                 root = loader.load();
                 ProfileController pc = loader.getController();
-                pc.setUser(id,email,password,firstName,lastName);
+                pc.setUser(new User(user.id,user.email,user.passwordHash, user.firstName, user.lastName));
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -39,10 +42,10 @@ public class DbUtils {
                 e.printStackTrace();
             }
         }
-
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setTitle("Welcome back");
+        stage.setTitle("Welcome");
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -65,15 +68,9 @@ public class DbUtils {
                  alert.show();
              }else{
                 while(set.next()){
-                    String retrievedId = set.getString("id");
-                    String retrievedEmail = set.getString("email");
-                    String retrievedPassword = set.getString("password");
-                    String retrievedFirstName = set.getString("first_name");
-                    String retrievedLastName = set.getString("last_name");
-                    // here for testing now
-                    User user = new User(set.getString("id"),set.getString("email"),set.getString("password"),set.getString("first_name"), set.getString("last_name"));
-                    if(user.getEmail().equals(email) && encoder.matches(password, user.getEncryptedPassword())){
-                        changeScene(event,"/Profile.fxml",retrievedId,retrievedEmail,retrievedPassword,retrievedFirstName,retrievedLastName);
+                    UserDto user = new UserDto(set.getString("id"),set.getString("email"),set.getString("password"),set.getString("first_name"), set.getString("last_name"));
+                    if(user.email.equals(email) && encoder.matches(password, user.passwordHash)){
+                        changeScene(event,"/Profile.fxml",user);
                     } else {
                         System.out.print("Psw do not match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -180,7 +177,7 @@ public class DbUtils {
             set = uExist.executeUpdate();
 
             if(set > 0) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Successfully updated user");
                 alert.show();
             } else {
@@ -225,13 +222,7 @@ public class DbUtils {
             set = uExist.execute();
 
             if(!set) {
-//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//                alert.setContentText("Successfully deleted user");
-//               // alert.showAndWait();
-//                Optional<ButtonType> option = alert.showAndWait();
-//                if(ButtonType.OK.equals(option.get())){
-                    changeScene(event,"/MainWindow.fxml",null,null,null,null,null);
-                //}
+                changeScene(event,"/MainWindow.fxml",new UserDto(null,null,null,null,null));
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Could not delete user!");
@@ -273,6 +264,10 @@ public class DbUtils {
              Alert alert = new Alert(Alert.AlertType.WARNING);
              alert.setContentText("New password cannot be same as the old one ");
              alert.show();
+         }else if (!encoder.matches(oldPsw, user.getEncryptedPassword())){
+             Alert alert = new Alert(Alert.AlertType.WARNING);
+             alert.setContentText("Current password does not match you input");
+             alert.show();
          }
          else {
              var hashedPassword = encoder.encode(newPsw);
@@ -284,7 +279,7 @@ public class DbUtils {
                 set = uExist.executeUpdate();
 
                 if(set > 0) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Successfully updated password");
                     alert.show();
                 } else {

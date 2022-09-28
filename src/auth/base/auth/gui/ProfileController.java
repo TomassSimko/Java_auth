@@ -1,6 +1,8 @@
 package auth.base.auth.gui;
 
 import auth.base.db.DbUtils;
+import auth.base.models.User;
+import auth.base.models.UserDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -40,11 +42,7 @@ public class ProfileController implements Initializable {
         btn_logout.setOnAction(event ->
                 DbUtils.changeScene(event,
                         "/MainWindow.fxml",
-                        null,
-                        null,
-                        null,
-                        null,
-                        null));
+                        new UserDto(null,null,null,null,null)));
         put_changes.setOnAction(event ->
                 DbUtils.updateUser(event,user_id.getText(),user_email.getText(),first_name.getText(),last_name.getText()));
 
@@ -56,13 +54,13 @@ public class ProfileController implements Initializable {
     }
 
     @FXML
-    public void setUser(String id,String email,String password,String firstName,String lastName){
-        String fullName = firstName + " " + lastName;
-        user_id.setText(id);
-        user_email.setText(email);
-        user_psw.setText(password);
-        first_name.setText(firstName);
-        last_name.setText(lastName);
+    public void setUser(User user){
+        String fullName = user.getFirstName() + " " + user.getLastName();
+        user_id.setText(user.getUserId());
+        user_email.setText(user.getEmail());
+        user_psw.setText(user.getEncryptedPassword());
+        first_name.setText(user.getFirstName());
+        last_name.setText(user.getLastName());
         full_name.setText(fullName);
 
     }

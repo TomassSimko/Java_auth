@@ -20,7 +20,6 @@ public class MainController implements Initializable {
     @FXML
     private Label lbl;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log_in.setOnAction(event ->

@@ -21,17 +21,17 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class DbUtils {
-    public static void changeScene(ActionEvent event, String fxmlFile, UserDto user){
+    public static void changeScene(ActionEvent event, String fxmlFile, User user){
         Parent root = null;
 
         // null pointer exception
-        if(user.email != null && user.passwordHash
+        if(user.getEmail() != null && user.getEncryptedPassword()
                 != null){
             try {
                 FXMLLoader loader = new FXMLLoader(DbUtils.class.getResource(fxmlFile));
                 root = loader.load();
                 ProfileController pc = loader.getController();
-                pc.setUser(new User(user.id,user.email,user.passwordHash, user.firstName, user.lastName));
+                pc.setUser(new User(user.getUserId(),user.getEmail(),user.getEncryptedPassword(), user.getFirstName(), user.getLastName()));
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -68,8 +68,8 @@ public class DbUtils {
                  alert.show();
              }else{
                 while(set.next()){
-                    UserDto user = new UserDto(set.getString("id"),set.getString("email"),set.getString("password"),set.getString("first_name"), set.getString("last_name"));
-                    if(user.email.equals(email) && encoder.matches(password, user.passwordHash)){
+                    User user = new User(set.getString("id"),set.getString("email"),set.getString("password"),set.getString("first_name"), set.getString("last_name"));
+                    if(user.getEmail().equals(email) && encoder.matches(password, user.getEncryptedPassword())){
                         changeScene(event,"/Profile.fxml",user);
                     } else {
                         System.out.print("Psw do not match");
@@ -222,7 +222,7 @@ public class DbUtils {
             set = uExist.execute();
 
             if(!set) {
-                changeScene(event,"/MainWindow.fxml",new UserDto(null,null,null,null,null));
+                changeScene(event,"/MainWindow.fxml",new User(null,null,null,null,null));
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Could not delete user!");

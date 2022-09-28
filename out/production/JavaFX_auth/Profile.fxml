@@ -82,7 +82,7 @@
             </Label>
             <Button fx:id="update_psw" layoutX="20.0" layoutY="345.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="101.0" style="-fx-background-color: #74b300#74b300;" text="Save password" textFill="WHITE" />
             <Button fx:id="delete_user" layoutX="265.0" layoutY="186.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="71.0" style="-fx-background-color: #b30f00#b30f00;" text="Delete" textFill="WHITE" />
-            <PasswordField fx:id="user_psw" layoutX="21.0" layoutY="243.0" prefHeight="26.0" prefWidth="147.0" />
+            <PasswordField fx:id="user_psw" layoutX="21.0" layoutY="243.0" prefHeight="26.0" prefWidth="147.0" promptText="Current Password" />
             <PasswordField fx:id="user_new_psw" layoutX="20.0" layoutY="291.0" prefHeight="26.0" prefWidth="147.0" promptText="New Password" />
          </children></AnchorPane>
   </items>

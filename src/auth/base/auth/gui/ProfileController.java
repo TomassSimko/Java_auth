@@ -42,7 +42,7 @@ public class ProfileController implements Initializable {
         btn_logout.setOnAction(event ->
                 DbUtils.changeScene(event,
                         "/MainWindow.fxml",
-                        new UserDto(null,null,null,null,null)));
+                        new User(null,null,null,null,null)));
         put_changes.setOnAction(event ->
                 DbUtils.updateUser(event,user_id.getText(),user_email.getText(),first_name.getText(),last_name.getText()));
 
@@ -58,7 +58,7 @@ public class ProfileController implements Initializable {
         String fullName = user.getFirstName() + " " + user.getLastName();
         user_id.setText(user.getUserId());
         user_email.setText(user.getEmail());
-        user_psw.setText(user.getEncryptedPassword());
+        // user_psw.setText(user.getEncryptedPassword());
         first_name.setText(user.getFirstName());
         last_name.setText(user.getLastName());
         full_name.setText(fullName);

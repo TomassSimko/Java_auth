@@ -14,9 +14,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    public Button log_in;
-    public TextField user_email;
-    public PasswordField user_password;
+    @FXML
+    private Button log_in;
+    @FXML
+    private TextField user_email;
+    @FXML
+    private  PasswordField user_password;
     @FXML
     private Label lbl;
 

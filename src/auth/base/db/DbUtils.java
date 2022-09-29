@@ -2,7 +2,6 @@ package auth.base.db;
 
 import auth.base.auth.gui.ProfileController;
 import auth.base.models.User;
-import auth.base.models.UserDto;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -21,10 +20,17 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class DbUtils {
+
+    // dependency injection ?
+    // inject db connection to use it all across the class ?
+    // create password hashed in another class ?
+
+    public DbUtils(){
+
+    }
     public static void changeScene(ActionEvent event, String fxmlFile, User user){
         Parent root = null;
 
-        // null pointer exception
         if(user.getEmail() != null && user.getEncryptedPassword()
                 != null){
             try {
@@ -54,7 +60,9 @@ public class DbUtils {
         Connection connection = null;
         PreparedStatement uExist = null;
         ResultSet set = null;
+        Alert alert;
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
+
         try{
              connection = cnn.getConnection();
              uExist = connection.prepareStatement("SELECT * FROM user as u WHERE u.email = ?");
@@ -63,17 +71,18 @@ public class DbUtils {
 
              if(!set.isBeforeFirst()){
                  System.out.print("User does not exists");
-                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                 alert = new Alert(Alert.AlertType.ERROR);
                  alert.setContentText("User does not exist");
                  alert.show();
              }else{
                 while(set.next()){
                     User user = new User(set.getString("id"),set.getString("email"),set.getString("password"),set.getString("first_name"), set.getString("last_name"));
+
                     if(user.getEmail().equals(email) && encoder.matches(password, user.getEncryptedPassword())){
                         changeScene(event,"/Profile.fxml",user);
                     } else {
                         System.out.print("Psw do not match");
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert = new Alert(Alert.AlertType.ERROR);
                         alert.setContentText("Password do not match");
                         alert.show();
                     }
@@ -107,65 +116,15 @@ public class DbUtils {
         }
     }
 
-    private static User getUserByEmail(String email) {
-        DbConnection cnn = new DbConnection();
-        Connection connection = null;
-        PreparedStatement uExist = null;
-        ResultSet set = null;
-
-        try{
-            connection = cnn.getConnection();
-            uExist = connection.prepareStatement("SELECT * FROM user as u WHERE u.email = ?");
-            uExist.setString(1,email);
-            set = uExist.executeQuery();
-
-            if(!set.isBeforeFirst()){
-                System.out.print("User does not exists");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("User does not exist");
-                alert.show();
-            }else{
-                while(set.next()){
-                    return new User(set.getString("id"),set.getString("email"),set.getString("password"),set.getString("first_name"),set.getString("last_name"));
-                }
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        } finally {
-            if(set != null){
-                try {
-                    // result , preparedStatement, connection
-                    set.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(uExist != null){
-                try {
-                    uExist.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
-    }
-
-
-
     // TODO: sort event and sort refreshing of GUI
     public static void updateUser(ActionEvent event, String id, String email, String firstName, String lastName) {
         DbConnection cnn = new DbConnection();
         Connection connection = null;
         PreparedStatement uExist = null;
         int set;
+        Parent root = null;
+        Alert alert;
+
         try{
             connection = cnn.getConnection();
             uExist = connection.prepareStatement("UPDATE user SET email = ?,first_name = ?,last_name = ? WHERE id = ?");
@@ -175,13 +134,22 @@ public class DbUtils {
             uExist.setString(4,id);
 
             set = uExist.executeUpdate();
-
+            User user = getUser(id);
             if(set > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Successfully updated user");
                 alert.show();
+                if(user != null){
+                    // this is shitty propably does not update gui
+                    // set user ?
+//                    FXMLLoader loader = new FXMLLoader(DbUtils.class.getResource("/Profile.fxml"));
+//                    root = loader.load();
+//                    ProfileController pc = loader.getController();
+//                    pc.setUser(new User(user.getUserId(),user.getEmail(),user.getEncryptedPassword(), user.getFirstName(), user.getLastName()));
+                }
+
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Could not update user !");
                 alert.show();
             }
@@ -214,6 +182,7 @@ public class DbUtils {
         Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION);
         alertConfirm.setContentText("Are you sure you want to proceed");
         Optional<ButtonType> option = alertConfirm.showAndWait();
+
         if(ButtonType.OK.equals(option.get())){
         try{
             connection = cnn.getConnection();
@@ -255,17 +224,17 @@ public class DbUtils {
          PreparedStatement uExist = null;
          int set;
          User user = getUser(id);
+         Alert alert;
 
-         if(oldPsw.isEmpty() || newPsw.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
+         if(oldPsw.isEmpty() || newPsw.isEmpty()){alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Neither old password or new password cannot be empty !");
             alert.show();
-        }else if (encoder.matches(newPsw, user.getEncryptedPassword())){
-             Alert alert = new Alert(Alert.AlertType.WARNING);
+        }else if (user != null && encoder.matches(newPsw, user.getEncryptedPassword())){
+             alert = new Alert(Alert.AlertType.WARNING);
              alert.setContentText("New password cannot be same as the old one ");
              alert.show();
-         }else if (!encoder.matches(oldPsw, user.getEncryptedPassword())){
-             Alert alert = new Alert(Alert.AlertType.WARNING);
+         }else if (user != null && !encoder.matches(oldPsw, user.getEncryptedPassword())){
+             alert = new Alert(Alert.AlertType.WARNING);
              alert.setContentText("Current password does not match you input");
              alert.show();
          }
@@ -279,11 +248,11 @@ public class DbUtils {
                 set = uExist.executeUpdate();
 
                 if(set > 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Successfully updated password");
                     alert.show();
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Could not update password !");
                     alert.show();
                 }

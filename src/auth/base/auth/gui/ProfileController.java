@@ -2,7 +2,6 @@ package auth.base.auth.gui;
 
 import auth.base.db.DbUtils;
 import auth.base.models.User;
-import auth.base.models.UserDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -48,6 +47,7 @@ public class ProfileController implements Initializable {
 
         delete_user.setOnAction(event ->
                 DbUtils.deleteUser(event,user_id.getText()));
+
         update_psw.setOnAction(event ->
                 DbUtils.updatePsw(event,user_id.getText(),user_psw.getText(),user_new_psw.getText()));
 
@@ -58,10 +58,8 @@ public class ProfileController implements Initializable {
         String fullName = user.getFirstName() + " " + user.getLastName();
         user_id.setText(user.getUserId());
         user_email.setText(user.getEmail());
-        // user_psw.setText(user.getEncryptedPassword());
         first_name.setText(user.getFirstName());
         last_name.setText(user.getLastName());
         full_name.setText(fullName);
-
     }
 }

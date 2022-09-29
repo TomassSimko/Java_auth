@@ -1,2 +1,1 @@
-# JavaFxPlayground
 # Java_auth

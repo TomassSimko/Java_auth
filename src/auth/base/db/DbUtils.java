@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 public class DbUtils {
 
@@ -28,6 +29,7 @@ public class DbUtils {
     public DbUtils(){
 
     }
+
     public static void changeScene(ActionEvent event, String fxmlFile, User user){
         Parent root = null;
 
@@ -53,6 +55,62 @@ public class DbUtils {
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.show();
+    }
+
+    public static void signUp(ActionEvent event,String email,String password,String firstName,String lastName){
+        DbConnection cnn = new DbConnection();
+        Connection connection = null;
+        PreparedStatement uExist = null;
+        int set;
+        Alert alert;
+        Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
+
+        var hashedPassword = encoder.encode(password);
+        User user = new User(UUID.randomUUID().toString(),email,hashedPassword,firstName,lastName);
+
+        try{
+            connection = cnn.getConnection();
+            uExist = connection.prepareStatement("INSERT INTO user (id,email,password,first_name,last_name) VALUES (?,?,?,?,?);");
+            uExist.setString(1, user.getUserId());
+            uExist.setString(2,user.getEmail());
+            uExist.setString(3,user.getEncryptedPassword());
+            uExist.setString(4,user.getFirstName());
+            uExist.setString(5,user.getLastName());
+
+            set = uExist.executeUpdate();
+
+            if(set > 0){
+                    Alert alertConfirm = new Alert(Alert.AlertType.INFORMATION);
+                    alertConfirm.setContentText("Successfully created user");
+                    Optional<ButtonType> option = alertConfirm.showAndWait();
+
+                    if(ButtonType.OK.equals(option.get())){
+                        changeScene(event, "/MainWindow.fxml", new User(null,null,null,null,null));
+                    }
+            }else{
+                System.out.print("Could not create user");
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Could not create user");
+                alert.show();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        } finally {
+            if(uExist != null){
+                try {
+                    uExist.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static void login(ActionEvent event,String email,String password){
@@ -122,7 +180,6 @@ public class DbUtils {
         Connection connection = null;
         PreparedStatement uExist = null;
         int set;
-        Parent root = null;
         Alert alert;
 
         try{

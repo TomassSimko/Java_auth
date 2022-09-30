@@ -47,7 +47,8 @@ public class DbUtils {
             try{
                 root = FXMLLoader.load(Objects.requireNonNull(DbUtils.class.getResource(fxmlFile)));
             } catch (IOException e){
-                e.printStackTrace();
+                // throw new UserShownException("Couldnt load something");
+            e.printStackTrace();
             }
         }
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -123,7 +124,8 @@ public class DbUtils {
 
         try{
              connection = cnn.getConnection();
-             uExist = connection.prepareStatement("SELECT * FROM user as u WHERE u.email = ?");
+             var query  = "SELECT * FROM user as u WHERE u.email = ?";
+             uExist = connection.prepareStatement(query);
              uExist.setString(1,email);
              set = uExist.executeQuery();
 
@@ -134,14 +136,19 @@ public class DbUtils {
                  alert.show();
              }else{
                 while(set.next()){
-                    User user = new User(set.getString("id"),set.getString("email"),set.getString("password"),set.getString("first_name"), set.getString("last_name"));
+                    User user = new User(
+                            set.getString("id"),
+                            set.getString("email"),
+                            set.getString("password"),
+                            set.getString("first_name"),
+                            set.getString("last_name"));
 
                     if(user.getEmail().equals(email) && encoder.matches(password, user.getEncryptedPassword())){
                         changeScene(event,"/Profile.fxml",user);
                     } else {
-                        System.out.print("Psw do not match");
+                        System.out.print("Psw or email does not match");
                         alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("Password do not match");
+                        alert.setContentText("Password or email is incorrect");
                         alert.show();
                     }
                 }
@@ -179,7 +186,7 @@ public class DbUtils {
         DbConnection cnn = new DbConnection();
         Connection connection = null;
         PreparedStatement uExist = null;
-        int set;
+        int set = 0;
         Alert alert;
 
         try{
@@ -191,28 +198,27 @@ public class DbUtils {
             uExist.setString(4,id);
 
             set = uExist.executeUpdate();
-            User user = getUser(id);
+            // User user = getUser(id);
+
             if(set > 0) {
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Error");
+                alert.show();
+            } else {
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Successfully updated user");
-                alert.show();
-                if(user != null){
-                    // this is shitty propably does not update gui
-                    // set user ?
-//                    FXMLLoader loader = new FXMLLoader(DbUtils.class.getResource("/Profile.fxml"));
-//                    root = loader.load();
-//                    ProfileController pc = loader.getController();
-//                    pc.setUser(new User(user.getUserId(),user.getEmail(),user.getEncryptedPassword(), user.getFirstName(), user.getLastName()));
-                }
-
-            } else {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Could not update user !");
                 alert.show();
             }
         }catch(SQLException e){
             e.printStackTrace();
         } finally {
+//            if(set != null){
+//                try {
+//                    set.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
             if(uExist != null){
                 try {
                     uExist.close();
@@ -234,7 +240,7 @@ public class DbUtils {
         DbConnection cnn = new DbConnection();
         Connection connection = null;
         PreparedStatement uExist = null;
-        boolean set;
+        ResultSet set = null;
 
         Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION);
         alertConfirm.setContentText("Are you sure you want to proceed");
@@ -245,9 +251,9 @@ public class DbUtils {
             connection = cnn.getConnection();
             uExist = connection.prepareStatement("DELETE FROM user WHERE id = ?");
             uExist.setString(1,id);
-            set = uExist.execute();
+            set = uExist.executeQuery();
 
-            if(!set) {
+            if(set.isBeforeFirst()) {
                 changeScene(event,"/MainWindow.fxml",new User(null,null,null,null,null));
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -257,6 +263,13 @@ public class DbUtils {
         }catch(SQLException e){
             e.printStackTrace();
         } finally {
+            if(set != null){
+                try{
+                    set.close();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
             if(uExist != null){
                 try {
                     uExist.close();
@@ -279,7 +292,7 @@ public class DbUtils {
          DbConnection cnn = new DbConnection();
          Connection connection = null;
          PreparedStatement uExist = null;
-         int set;
+         ResultSet set = null;
          User user = getUser(id);
          Alert alert;
 
@@ -302,11 +315,11 @@ public class DbUtils {
                 uExist = connection.prepareStatement("UPDATE user SET password = ? WHERE id = ?");
                 uExist.setString(1,hashedPassword);
                 uExist.setString(2,id);
-                set = uExist.executeUpdate();
+                set = uExist.executeQuery();
 
-                if(set > 0) {
+                if(!set.isBeforeFirst()) {
                     alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Successfully updated password");
+                    alert.setContentText("Could not update user");
                     alert.show();
                 } else {
                     alert = new Alert(Alert.AlertType.ERROR);
@@ -316,6 +329,13 @@ public class DbUtils {
             }catch(SQLException e){
                 e.printStackTrace();
             } finally {
+                if(set != null){
+                    try{
+                        set.close();
+                    }catch(SQLException e){
+                        e.printStackTrace();
+                    }
+                }
                 if(uExist != null){
                     try {
                         uExist.close();
@@ -385,3 +405,13 @@ public class DbUtils {
     }
 }
 
+//  if(user != null){
+//          // this is shitty propably does not update gui
+//
+//
+//          // set user ?
+////                    FXMLLoader loader = new FXMLLoader(DbUtils.class.getResource("/Profile.fxml"));
+////                    root = loader.load();
+////                    ProfileController pc = loader.getController();
+////                    pc.setUser(new User(user.getUserId(),user.getEmail(),user.getEncryptedPassword(), user.getFirstName(), user.getLastName()));
+//          }

@@ -16,15 +16,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class DbUtils {
 
     // dependency injection ?
     // inject db connection to use it all across the class ?
     // create password hashed in another class ?
+    // TODO: Write better connection for sql with using DI |
+    //  Throw custom Exception |
+    //  Use StringProperties instead of String
 
     public DbUtils(){
 

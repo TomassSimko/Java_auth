@@ -27,6 +27,8 @@ public class SignUpController implements Initializable {
     @FXML
     private TextField new_email;
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

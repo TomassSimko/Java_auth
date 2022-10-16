@@ -1,7 +1,7 @@
-package auth.base.db;
+package bll.db;
 
-import auth.base.auth.gui.ProfileController;
-import auth.base.models.User;
+import gui.controller.ProfileController;
+import be.User;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

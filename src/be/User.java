@@ -1,4 +1,4 @@
-package auth.base.models;
+package be;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
-package auth.base.auth.gui;
+package gui.controller;
 
-import auth.base.db.DbUtils;
+import bll.db.DbUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

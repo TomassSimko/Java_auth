@@ -1,6 +1,6 @@
 package gui.controller;
 
-import bll.db.DbUtils;
+import bll.DbUtilities;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,7 +22,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log_in.setOnAction(event ->
-                DbUtils.login(event,
+                DbUtilities.login(event,
                         user_email.getText(),
                         user_password.getText()
                 ));

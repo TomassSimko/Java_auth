@@ -1,6 +1,5 @@
 package gui;
 
-import bll.db.DbConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

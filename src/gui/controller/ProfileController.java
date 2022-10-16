@@ -1,6 +1,7 @@
 package gui.controller;
 
-import bll.db.DbUtils;
+import be.User;
+import bll.DbUtilities;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -38,31 +39,26 @@ public class ProfileController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         btn_logout.setOnAction(event ->
-                DbUtils.changeScene(event,
-                        "/MainWindow.fxml",
-                        null,
-                        null,
-                        null,
-                        null,
-                        null));
+                DbUtilities.changeScene(event,
+                        "/MainWindow.fxml", null));
         put_changes.setOnAction(event ->
-                DbUtils.updateUser(event,user_id.getText(),user_email.getText(),first_name.getText(),last_name.getText()));
+                DbUtilities.updateUser(event,user_id.getText(),user_email.getText(),first_name.getText(),last_name.getText()));
 
         delete_user.setOnAction(event ->
-                DbUtils.deleteUser(event,user_id.getText()));
+                DbUtilities.deleteUser(event,user_id.getText()));
         update_psw.setOnAction(event ->
-                DbUtils.updatePsw(event,user_id.getText(),user_psw.getText(),user_new_psw.getText()));
+                DbUtilities.updatePsw(event,user_id.getText(),user_psw.getText(),user_new_psw.getText()));
 
     }
 
     @FXML
-    public void setUser(String id,String email,String password,String firstName,String lastName){
-        String fullName = firstName + " " + lastName;
-        user_id.setText(id);
-        user_email.setText(email);
-        user_psw.setText(password);
-        first_name.setText(firstName);
-        last_name.setText(lastName);
+    public void setUser(User u){
+        String fullName = u.getFirstName() + " " + u.getLastName();
+        user_id.setText(u.getUserId());
+        user_email.setText(u.getEmail());
+        user_psw.setText(u.getEncryptedPassword());
+        first_name.setText(u.getFirstName());
+        last_name.setText(u.getLastName());
         full_name.setText(fullName);
 
     }

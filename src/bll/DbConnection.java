@@ -1,11 +1,11 @@
-package bll.db;
+package bll;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DbConnection {
-    private Connection dbLink;
+    private static Connection dbLink;
 
-    public Connection getConnection(){
+    public static Connection getConnection(){
         String dbName = "jdbc_base";
         String dbUser = "root";
         String dbPassword = "a4tTx16fPjbw98Dsc";

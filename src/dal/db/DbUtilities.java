@@ -17,9 +17,10 @@ import java.util.Objects;
 
 public class DbUtilities {
 
-    private DbConnection dbConnection;
+    private final DbConnection dbConnection;
 
     public DbUtilities(){
+
         dbConnection = new DbConnection();
     }
 

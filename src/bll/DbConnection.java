@@ -1,18 +1,24 @@
 package bll;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 public class DbConnection {
     private static Connection dbLink;
+    private static final String PROP_FILE = "data/DbConfig.properties";
 
     public static Connection getConnection(){
-        String dbName = "jdbc_base";
-        String dbUser = "root";
-        String dbPassword = "a4tTx16fPjbw98Dsc";
-        String url = "jdbc:mysql://localhost/" + dbName;
-
+        String dbName,dbUser,dbPassword,url;
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Properties databaseProperties = new Properties();
+            databaseProperties.load(new FileInputStream(PROP_FILE));
+
+            dbName = databaseProperties.getProperty("db.name");
+            dbUser = databaseProperties.getProperty("db.username");
+            dbPassword = databaseProperties.getProperty("db.password");
+            url = databaseProperties.getProperty("db.url") + dbName;
+            Class.forName(databaseProperties.getProperty("db.driver.url"));
             dbLink = DriverManager.getConnection(url,dbUser,dbPassword);
         }catch(Exception e){
             e.printStackTrace();

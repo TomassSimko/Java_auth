@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private String id;
+
     private String email;
     private String passwordHash;
     private String firstName;
@@ -47,5 +48,9 @@ public class User implements Serializable {
     }
     public void setEncryptedPassword(String encryptedPassword) {
         this.passwordHash = encryptedPassword;
+    }
+
+    public String getFullName() {
+        return this.firstName + this.lastName;
     }
 }

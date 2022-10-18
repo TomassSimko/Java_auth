@@ -41,25 +41,23 @@ public class ProfileController implements Initializable {
         btn_logout.setOnAction(event ->
                 DbUtilities.changeScene(event,
                         "/MainWindow.fxml", null));
-        put_changes.setOnAction(event ->
-                DbUtilities.updateUser(event,user_id.getText(),user_email.getText(),first_name.getText(),last_name.getText()));
+//        put_changes.setOnAction(event ->
+//                DbUtilities.updateUser(event,user_id.getText(),user_email.getText(),first_name.getText(),last_name.getText()));
 
         delete_user.setOnAction(event ->
                 DbUtilities.deleteUser(event,user_id.getText()));
-        update_psw.setOnAction(event ->
-                DbUtilities.updatePsw(event,user_id.getText(),user_psw.getText(),user_new_psw.getText()));
+//        update_psw.setOnAction(event ->
+//                DbUtilities.updatePsw(event,user_id.getText(),user_psw.getText(),user_new_psw.getText()));
 
     }
 
     @FXML
     public void setUser(User u){
-        String fullName = u.getFirstName() + " " + u.getLastName();
         user_id.setText(u.getUserId());
         user_email.setText(u.getEmail());
         user_psw.setText(u.getEncryptedPassword());
         first_name.setText(u.getFirstName());
         last_name.setText(u.getLastName());
-        full_name.setText(fullName);
-
+        full_name.setText(u.getFullName());
     }
 }

@@ -82,17 +82,8 @@ public class DbUtilities {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, id);
             ResultSet set = ps.executeQuery();
-            Alert alert;
-            if (!set.isBeforeFirst()) {
-                System.out.print("User does not exists");
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("User does not exist");
-                alert.show();
-            } else {
-                while (set.next()) {
-                    User user = new User(set.getString("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
-                    return user;
-                }
+            if (set.next()) {
+                return new User(set.getString("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -106,17 +97,8 @@ public class DbUtilities {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet set = ps.executeQuery();
-            Alert alert;
-            if (!set.isBeforeFirst()) {
-                System.out.print("User does not exists");
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("User does not exist");
-                alert.show();
-            } else {
-                while (set.next()) {
-                    User user = new User(set.getString("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
-                    return user;
-                }
+            if (set.next()) {
+                return new User(set.getString("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();

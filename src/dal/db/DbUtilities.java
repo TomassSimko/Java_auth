@@ -17,11 +17,11 @@ import java.util.Objects;
 
 public class DbUtilities {
 
-    private final DbConnection dbConnection;
+   // private final DbConnection dbConnection;
 
     public DbUtilities(){
 
-        dbConnection = new DbConnection();
+      //  dbConnection = new DbConnection();
     }
 
     private final static Argon2PasswordEncoder encoder =
@@ -52,87 +52,88 @@ public class DbUtilities {
         stage.setScene(new Scene(root));
         stage.show();
     }
-
-
-
-    public void login(ActionEvent event, String email, String password) {
-        try (Connection con = dbConnection.getConnection()) {
-            String sql = "SELECT * FROM user as u WHERE u.email = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, email);
-            ResultSet set = ps.executeQuery();
-            Alert alert;
-            if (!set.isBeforeFirst()) {
-                System.out.print("User does not exists");
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("User does not exist");
-                alert.show();
-            } else {
-                while (set.next()) {
-                    User user = new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
-                    if (user.getEmail().equals(email) && encoder.matches(password, user.getEncryptedPassword())) {
-                        changeScene(event, "/Profile.fxml", user);
-                    } else {
-                        alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("Password do not match");
-                        alert.show();
-                    }
-                }
-            }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        }
-    }
-
-    public User getUserById(String id) {
-        try (Connection con = dbConnection.getConnection()) {
-            String sql = "SELECT * FROM user as u WHERE u.id = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, id);
-            ResultSet set = ps.executeQuery();
-            if (set.next()) {
-                return new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
-            }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        }
-        return null;
-    }
-
-    private  User getUserByEmail(String email) {
-        try (Connection con = dbConnection.getConnection()) {
-            String sql = "SELECT * FROM user as u WHERE u.email = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, email);
-            ResultSet set = ps.executeQuery();
-            if (set.next()) {
-                return new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
-            }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        }
-        return null;
-    }
-
-    public void deleteUser(ActionEvent event, String id) {
-        try (Connection con = dbConnection.getConnection()) {
-            String sql = "DELETE FROM user WHERE id = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, id);
-            ResultSet set = ps.executeQuery();
-            Alert alert;
-            if (!set.isBeforeFirst()) {
-                changeScene(event, "/MainWindow.fxml", null);
-            } else {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Could not delete user!");
-                alert.show();
-            }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        }
-    }
 }
+
+
+
+//    public void login(ActionEvent event, String email, String password) {
+//        try (Connection con = dbConnection.getConnection()) {
+//            String sql = "SELECT * FROM user as u WHERE u.email = ?";
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setString(1, email);
+//            ResultSet set = ps.executeQuery();
+//            Alert alert;
+//            if (!set.isBeforeFirst()) {
+//                System.out.print("User does not exists");
+//                alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setContentText("User does not exist");
+//                alert.show();
+//            } else {
+//                while (set.next()) {
+//                    User user = new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
+//                    if (user.getEmail().equals(email) && encoder.matches(password, user.getEncryptedPassword())) {
+//                        changeScene(event, "/Profile.fxml", user);
+//                    } else {
+//                        alert = new Alert(Alert.AlertType.ERROR);
+//                        alert.setContentText("Password do not match");
+//                        alert.show();
+//                    }
+//                }
+//            }
+//        } catch (SQLException throwable) {
+//            throwable.printStackTrace();
+//        }
+//    }
+//
+//    public User getUserById(String id) {
+//        try (Connection con = dbConnection.getConnection()) {
+//            String sql = "SELECT * FROM user as u WHERE u.id = ?";
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setString(1, id);
+//            ResultSet set = ps.executeQuery();
+//            if (set.next()) {
+//                return new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
+//            }
+//        } catch (SQLException throwable) {
+//            throwable.printStackTrace();
+//        }
+//        return null;
+//    }
+//
+//    private  User getUserByEmail(String email) {
+//        try (Connection con = dbConnection.getConnection()) {
+//            String sql = "SELECT * FROM user as u WHERE u.email = ?";
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setString(1, email);
+//            ResultSet set = ps.executeQuery();
+//            if (set.next()) {
+//                return new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
+//            }
+//        } catch (SQLException throwable) {
+//            throwable.printStackTrace();
+//        }
+//        return null;
+//    }
+//
+//    public void deleteUser(ActionEvent event, String id) {
+//        try (Connection con = dbConnection.getConnection()) {
+//            String sql = "DELETE FROM user WHERE id = ?";
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setString(1, id);
+//            ResultSet set = ps.executeQuery();
+//            Alert alert;
+//            if (!set.isBeforeFirst()) {
+//                changeScene(event, "/MainWindow.fxml", null);
+//            } else {
+//                alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setContentText("Could not delete user!");
+//                alert.show();
+//            }
+//        } catch (SQLException throwable) {
+//            throwable.printStackTrace();
+//        }
+//    }
+//}
 
 // TODO: sort event and sort refreshing of GUI
 //    public static void updateUser(ActionEvent event, String id, String email, String firstName, String lastName) {

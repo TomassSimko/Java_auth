@@ -4,6 +4,8 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,25 +15,32 @@ public class DbConnection {
     private static Connection dbLink;
     private static final String PROP_FILE = "data/DbConfig.properties";
 
+
     public DbConnection() {
         try {
-            Properties databaseProperties = new Properties();
-            databaseProperties.load(new FileInputStream(PROP_FILE));
+            // private static Connection connection = null;
+            Properties properties = new Properties();
+            properties.load(new FileInputStream(PROP_FILE));
 
-//            String dbName = databaseProperties.getProperty("db.name");
-//            String dbUser = databaseProperties.getProperty("db.username");
-//            String dbPassword = databaseProperties.getProperty("db.password");
-//            String url = databaseProperties.getProperty("db.url") + dbName;
-//            Class.forName(databaseProperties.getProperty("db.driver.url"));
-
+//          String dbName = properties.getProperty("db.name");
+//          String dbUser = properties.getProperty("db.username");
+//          String dbPassword = properties.getProperty("db.password");
+//          String url = properties.getProperty("db.url") + dbName;
+//          Class.forName(properties.getProperty("db.driver.url"));
+//
+//            connection = DriverManager.getConnection(url,dbUser,dbPassword);
             dataSource = new SQLServerDataSource();
-            dataSource.setServerName(databaseProperties.getProperty("db.server"));
-            dataSource.setDatabaseName(databaseProperties.getProperty("db.name"));
-            dataSource.setUser(databaseProperties.getProperty("db.username"));
-            dataSource.setPassword(databaseProperties.getProperty("db.password"));
-            dataSource.setPortNumber(Integer.parseInt(databaseProperties.getProperty("db.port")));
-        } catch (IOException e) {
-            System.out.println("Cannot find the property file");
+
+            dataSource.setURL(properties.getProperty("db.url"));
+            dataSource.setUser(properties.getProperty("db.username"));
+            dataSource.setPassword(properties.getProperty("db.password"));
+
+          //  dataSource.setServerName("localhost");
+           // dataSource.setDatabaseName("jdbc_base");
+          //  dataSource.setPortNumber(3306);
+
+        } catch (IOException se) {
+            System.out.printf("Cannot find the property file %.2f\n", se);
         }
     }
 

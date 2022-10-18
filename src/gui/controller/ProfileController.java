@@ -57,7 +57,7 @@ public class ProfileController implements Initializable {
 
     @FXML
     public void setUser(User u){
-        user_id.setText(u.getUserId());
+      //  user_id.setText(u.getUserId());
         user_email.setText(u.getEmail());
         user_psw.setText(u.getEncryptedPassword());
         first_name.setText(u.getFirstName());

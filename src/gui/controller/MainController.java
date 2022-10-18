@@ -29,7 +29,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.userModel = new UserModel();
-        fetchUsers();
+//        fetchUsers();
 
         log_in.setOnAction(this::auth);
 
@@ -50,6 +50,7 @@ public class MainController implements Initializable {
     private void auth(ActionEvent event) {
         if(!user_email.getText().isBlank() || !user_password.getText().isBlank()) {
            //  utilities.login(event,user_email.getText(),user_password.getText());
+            fetchUsers();
         }else {
             System.out.println("Username or Password cannot be empty");
         }

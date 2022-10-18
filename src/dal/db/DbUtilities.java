@@ -68,7 +68,7 @@ public class DbUtilities {
                 alert.show();
             } else {
                 while (set.next()) {
-                    User user = new User(set.getString("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
+                    User user = new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
                     if (user.getEmail().equals(email) && encoder.matches(password, user.getEncryptedPassword())) {
                         changeScene(event, "/Profile.fxml", user);
                     } else {
@@ -90,7 +90,7 @@ public class DbUtilities {
             ps.setString(1, id);
             ResultSet set = ps.executeQuery();
             if (set.next()) {
-                return new User(set.getString("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
+                return new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -105,7 +105,7 @@ public class DbUtilities {
             ps.setString(1, email);
             ResultSet set = ps.executeQuery();
             if (set.next()) {
-                return new User(set.getString("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
+                return new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();

@@ -21,7 +21,6 @@ public class MainController implements Initializable {
     @FXML
     private Label lbl;
 
-    private DbUtilities utilities;
 
     // testing model
     private UserModel userModel;
@@ -30,23 +29,27 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.userModel = new UserModel();
-        var test = userModel.getUserList();
-        for (User u : test){
-            System.out.println(u);
-        }
+        fetchUsers();
 
-        utilities = new DbUtilities();
+        log_in.setOnAction(this::auth);
+
 //        log_in.setOnAction(event ->
 //                DbUtilities.login(event,
 //                        user_email.getText(),
 //                        user_password.getText()
 //                ));
-        log_in.setOnAction(this::auth);
+    }
+
+    private void fetchUsers() {
+        var test = userModel.getUserList();
+        for (User u : test){
+            System.out.println(u);
+        }
     }
 
     private void auth(ActionEvent event) {
         if(!user_email.getText().isBlank() || !user_password.getText().isBlank()) {
-            utilities.login(event,user_email.getText(),user_password.getText());
+           //  utilities.login(event,user_email.getText(),user_password.getText());
         }else {
             System.out.println("Username or Password cannot be empty");
         }

@@ -18,4 +18,10 @@ public class UserManager implements IUserManager {
     public List<User> getUsers() {
         return userService.getUsers();
     }
+
+    @Override
+    public User registerUser(String email,String password){
+        return userService.registerUser(email,password);
+
+    }
 }

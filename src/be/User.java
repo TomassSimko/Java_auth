@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    private String id;
+    private int id;
     private String email;
     private String passwordHash;
     private String firstName;
     private String lastName;
 
-    public User(String id,String email,String passwordHash,String firstName,String lastName){
+    public User(int id,String email,String passwordHash,String firstName,String lastName){
         this.id = id;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -18,10 +18,10 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return id;
     }
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.id = userId;
     }
     public String getFirstName() {

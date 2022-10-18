@@ -1,6 +1,9 @@
 package gui.controller;
 
-import bll.DbUtilities;
+import be.User;
+import dal.db.DbUtilities;
+import gui.models.UserModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,13 +21,35 @@ public class MainController implements Initializable {
     @FXML
     private Label lbl;
 
+    private DbUtilities utilities;
+
+    // testing model
+    private UserModel userModel;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        log_in.setOnAction(event ->
-                DbUtilities.login(event,
-                        user_email.getText(),
-                        user_password.getText()
-                ));
+        this.userModel = new UserModel();
+        var test = userModel.getUserList();
+        for (User u : test){
+            System.out.println(u);
+        }
+
+        utilities = new DbUtilities();
+//        log_in.setOnAction(event ->
+//                DbUtilities.login(event,
+//                        user_email.getText(),
+//                        user_password.getText()
+//                ));
+        log_in.setOnAction(this::auth);
     }
+
+    private void auth(ActionEvent event) {
+        if(!user_email.getText().isBlank() || !user_password.getText().isBlank()) {
+            utilities.login(event,user_email.getText(),user_password.getText());
+        }else {
+            System.out.println("Username or Password cannot be empty");
+        }
+    }
+
 }

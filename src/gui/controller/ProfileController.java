@@ -1,7 +1,8 @@
 package gui.controller;
 
 import be.User;
-import bll.DbUtilities;
+import bll.IUserManager;
+import dal.db.DbUtilities;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -35,6 +36,9 @@ public class ProfileController implements Initializable {
     @FXML
     private TextField last_name;
 
+    private IUserManager userManager;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -44,8 +48,8 @@ public class ProfileController implements Initializable {
 //        put_changes.setOnAction(event ->
 //                DbUtilities.updateUser(event,user_id.getText(),user_email.getText(),first_name.getText(),last_name.getText()));
 
-        delete_user.setOnAction(event ->
-                DbUtilities.deleteUser(event,user_id.getText()));
+//        delete_user.setOnAction(event ->
+//                DbUtilities.deleteUser(event,user_id.getText()));
 //        update_psw.setOnAction(event ->
 //                DbUtilities.updatePsw(event,user_id.getText(),user_psw.getText(),user_new_psw.getText()));
 

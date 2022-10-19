@@ -1,16 +1,21 @@
 package gui.controller;
 
 import be.User;
-import dal.db.DbUtilities;
 import gui.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,17 +27,17 @@ public class MainController implements Initializable {
     private Label lbl;
 
 
-    // testing model
-    private UserModel userModel;
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.userModel = new UserModel();
 //        fetchUsers();
 
-        log_in.setOnAction(this::auth);
-
+        log_in.setOnAction(event -> {
+            try {
+                auth(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 //        log_in.setOnAction(event ->
 //                DbUtilities.login(event,
 //                        user_email.getText(),
@@ -40,20 +45,30 @@ public class MainController implements Initializable {
 //                ));
     }
 
-    private void fetchUsers() {
-        var test = userModel.getUserList();
-        for (User u : test){
-            System.out.println(u);
-        }
-    }
 
-    private void auth(ActionEvent event) {
+    private void auth(ActionEvent event) throws IOException {
         if(!user_email.getText().isBlank() || !user_password.getText().isBlank()) {
            //  utilities.login(event,user_email.getText(),user_password.getText());
-            fetchUsers();
+            openDashboardWindow(event);
         }else {
             System.out.println("Username or Password cannot be empty");
         }
     }
+    private void openDashboardWindow(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+        Parent root = loader.load();
+        ((DashboardController)loader.getController()).setMainController(this);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Welcome back");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void refresh() {
+      //  result_table.getItems().clear();
+        // result_table.setItems(userModel.getUserList());
+    }
+
 
 }

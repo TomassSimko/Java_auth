@@ -1,7 +1,6 @@
 package dal.repositories;
 
 import be.User;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.db.DbConnection;
 
 import java.sql.*;
@@ -50,7 +49,7 @@ public class UserDAO {
             rs.next();
             int id = rs.getInt(1);
             return new User(id, email, passwordHash,"","");
-        } catch (SQLServerException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

@@ -17,11 +17,7 @@ import java.util.Objects;
 
 public class DbUtilities {
 
-   // private final DbConnection dbConnection;
-
     public DbUtilities(){
-
-      //  dbConnection = new DbConnection();
     }
 
     private final static Argon2PasswordEncoder encoder =

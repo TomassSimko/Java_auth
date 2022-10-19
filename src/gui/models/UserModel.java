@@ -16,11 +16,17 @@ public class UserModel {
 
     public UserModel(){
         userManager = new UserManager();
+        getUserList();
     }
 
     public ObservableList<User> getUserList() {
         List<User> fetchedUsers = userManager.getUsers();
         userList = FXCollections.observableArrayList(fetchedUsers);
         return userList;
+    }
+
+    public void addUser(String email,String password){
+        User fetchedUser = userManager.createUser(email,password);
+        userList.add(fetchedUser);
     }
 }

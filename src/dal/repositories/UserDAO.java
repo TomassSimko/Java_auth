@@ -28,9 +28,9 @@ public class UserDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
-                String passwordHash = rs.getString("passwordHash");
-                String firstName = rs.getString("firstName");
-                String lastName = rs.getString("lastName");
+                String passwordHash = rs.getString("password");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
                 userList.add(new User(id, email, passwordHash, firstName, lastName));
             }
         } catch (SQLException ex) {

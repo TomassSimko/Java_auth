@@ -33,18 +33,6 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        fetchUsers();
-//
-
-//        log_in.setOnAction(event ->
-//                DbUtilities.login(event,
-//                        user_email.getText(),
-//                        user_password.getText()
-//                ));
-//        FXMLLoader fxmlLoader = loadFxmlPage("/view/admin/pages/home/home.fxml");
-//        HomeController homeController = fxmlLoader.getController();
-//        homeController.getDashboardProdCount();
-//        homeController.getDashboardCostCount();
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
         DashboardController dashboardController = fxmlLoader.getController();
     }
@@ -72,24 +60,14 @@ public class MainController implements Initializable {
 //            System.out.println("Username or Password cannot be empty");
 //        }
 //    }
-    private void openDashboardWindow(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/pages/DashboardUsers.fxml"));
-        Parent root = loader.load();
-        ((UsersController)loader.getController()).setMainController(this);
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Welcome back");
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
 
-    public void refresh() {
-      //  result_table.getItems().clear();
-        // result_table.setItems(userModel.getUserList());
-    }
+
 
     // switch to dashboard page
     public void btnDashboard(ActionEvent event) {
+        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
+        UsersController controller = fxmlLoader.getController();
     }
 
     // switch to users page

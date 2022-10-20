@@ -65,7 +65,7 @@ public class DbUtilities {
 //                while (set.next()) {
 //                    User user = new User(set.getInt("id"), set.getString("email"), set.getString("password"), set.getString("first_name"), set.getString("last_name"));
 //                    if (user.getEmail().equals(email) && encoder.matches(password, user.getEncryptedPassword())) {
-//                        changeScene(event, "/Profile.fxml", user);
+//                        changeScene(event, "/UserAction.fxml", user);
 //                    } else {
 //                        alert = new Alert(Alert.AlertType.ERROR);
 //                        alert.setContentText("Password do not match");

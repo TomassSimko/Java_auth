@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #fff;" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
+    <StackPane id="app_content" layoutY="-9.0" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <AnchorPane fx:id="drawer">
+                    <AnchorPane prefWidth="127.0">
+                        <Button fx:id="dashboardRoute" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutY="13.0" minHeight="53.0" mnemonicParsing="false" onAction="#btnDashboard" prefHeight="53.0" prefWidth="127.0" styleClass="menuButton" text="Dashboard" />
+                        <Button fx:id="usersRoute" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutY="53.0" mnemonicParsing="false" onAction="#btnUsersOnClick" prefHeight="78.0" prefWidth="127.0" styleClass="menuButton" text="Users" />
+                    </AnchorPane>
+                </AnchorPane>
+            </left>
+            <center>
+                <StackPane fx:id="app_content" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Label text="Dashboard">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+               </children></StackPane>
+            </center>
+            <top>
+                <AnchorPane fx:id="header_menu" prefHeight="42.0" prefWidth="753.0" BorderPane.alignment="CENTER">
+                    <effect>
+                        <DropShadow height="50.0" radius="12.0" spread="0.15" width="0.0">
+                            <color>
+                                <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982" />
+                            </color>
+                        </DropShadow>
+                    </effect>
+                    <GridPane layoutX="14.0" layoutY="-15.0" prefHeight="60.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                            <ImageView fitHeight="28.0" fitWidth="30.0" preserveRatio="true">
+                                <HBox.margin>
+                                    <Insets left="10.0" />
+                                </HBox.margin>
+                        <image>
+                           <Image url="@../../../resources/logo.png" />
+                        </image>
+                            </ImageView>
+                     <Label text="User Manager">
+                        <HBox.margin>
+                           <Insets left="10.0" />
+                        </HBox.margin>
+                        <font>
+                           <Font name="Source Code Pro Black for Powerline" size="16.0" />
+                        </font>
+                     </Label>
+                        </HBox>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                        </AnchorPane>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="200.0" GridPane.columnIndex="2">
+                            <Button fx:id="lblLogOut" contentDisplay="TOP" layoutY="300.0" mnemonicParsing="false" onAction="#btnLogOutOnClick" text="Log Out">
+                                <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                </HBox.margin>
+                        <styleClass>
+                           <String fx:value="xs" />
+                           <String fx:value="primary" />
+                        </styleClass>
+                            </Button>
+                        </HBox>
+                    </GridPane>
+                </AnchorPane>
+            </top>
+        </BorderPane>
+    </StackPane>
+</AnchorPane>

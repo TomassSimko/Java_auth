@@ -22,6 +22,5 @@ public class UserManager implements IUserManager {
     @Override
     public User createUser(String email, String password){
         return userService.registerUser(email,password);
-
     }
 }

@@ -1,0 +1,27 @@
+@import "bootstrap3.css";
+
+.menuButton{
+    -fx-border-width: 0px 0px 0px 0px;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-text-fill: #4E4F52;
+    -fx-background-color: #e5e5e5;
+    -fx-min-height: 40;
+}
+
+.menuButton:hover{
+    -fx-background-color: #f3f3f3;
+}
+
+#header_menu{
+    -fx-background-color: #e5e5e5;
+}
+#drawer{
+    -fx-background-color:#e5e5e5;
+}
+
+.table-view {
+    -fx-focus-color: #cecece;
+    -fx-effect: null;
+    -fx-outer-border : #cecece;
+}

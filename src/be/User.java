@@ -3,17 +3,16 @@ package be;
 import java.io.Serializable;
 
 public class User implements Serializable {
-
-    private int id;
+    private Integer id;
     private String email;
-    private String passwordHash;
+    private String password;
     private String firstName;
     private String lastName;
 
-    public User(int id,String email,String passwordHash,String firstName,String lastName){
+    public User(Integer id,String email,String password,String firstName,String lastName){
         this.id = id;
         this.email = email;
-        this.passwordHash = passwordHash;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -43,13 +42,13 @@ public class User implements Serializable {
         this.email = email;
     }
     public String getEncryptedPassword() {
-        return passwordHash;
+        return password;
     }
     public void setEncryptedPassword(String encryptedPassword) {
-        this.passwordHash = encryptedPassword;
+        this.password = encryptedPassword;
     }
 
-    public String getFullName() {
-        return this.firstName + this.lastName;
-    }
+  //  public String getFullName() {
+       // return this.firstName + this.lastName;
+   // }
 }

@@ -62,6 +62,6 @@ public class ProfileController implements Initializable {
         user_psw.setText(u.getEncryptedPassword());
         first_name.setText(u.getFirstName());
         last_name.setText(u.getLastName());
-        full_name.setText(u.getFullName());
+       //  full_name.setText(u.getFullName());
     }
 }

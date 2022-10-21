@@ -41,14 +41,15 @@
 }
 
 /* USERS TABLE */
-.table-view {
+#result_table {
     -fx-focus-color: #252526;
     -fx-effect: null;
     -fx-outer-border : #252526;
     -fx-background-color:#252526;
 }
-#result_table{
--fx-background-color:#252526;}
+
+
+
 
 #table_pane{
   -fx-background-color:#1e1e1e;
@@ -58,10 +59,10 @@
 }*/
 
 #search_btn{
--fx-background-color:#351c75;
-     -fx-border-width: 0px 0px 0px 0px;
-     -fx-background-radius: 2px;
-     -fx-text-fill:white;
+  -fx-background-color:#351c75;
+  -fx-border-width: 0px 0px 0px 0px;
+  -fx-background-radius: 2px;
+  -fx-text-fill:white;
 }
 
 #search_field{
@@ -72,12 +73,12 @@
   -fx-text-fill: #4E4F52;
 }
 
-#column{
+#userTable{
     -fx-text-fill: white;
     -fx-border-width: 0px 0px 0px 0px;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
-   /* -fx-background-color:#252526;*/
+    -fx-background-color:#252526;
 }
 
 #add_user{

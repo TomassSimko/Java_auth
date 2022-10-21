@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,8 +26,7 @@ import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
 
-    @FXML
-    private Button add;
+    public TextField search_field;
     @FXML
     private TextField password_input;
     @FXML
@@ -34,62 +34,56 @@ public class UsersController implements Initializable {
     @FXML
     private TableView<User> result_table;
 
+    @FXML
+    private TableColumn<User, Integer> id_col;
+    @FXML
+    private TableColumn<User, String> email_col;
+
     private UserModel userModel;
-//    private MainController mainController;
-//
-//    public void setMainController(MainController mainController) {
-//        this.mainController = mainController;
-//    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-         this.userModel = new UserModel();
-      //   result_table.setItems(userModel.getUserList());
-        setUsers();
-       // setUsers();
-//        add.setOnAction(this::createUser);
+        this.userModel = new UserModel();
+        id_col.setCellValueFactory(new PropertyValueFactory<>("firstName"));       // setUsers();
+        email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
+        result_table.setItems(userModel.getUserList());
+
     }
 
-    private void setUsers() {
-        fetchUsers();
-        // TODO: Not working binding only some of the values
-        // result_table.setItems(userModel.getUserList());
-        Task<ObservableList<User>> allUsers = new Task<ObservableList<User>>() {
-            @Override
-            protected ObservableList<User> call() {
-                return FXCollections.observableArrayList(userModel.getUserList());
-            }
-        };
-        result_table.itemsProperty().bind(allUsers.valueProperty());
-        new Thread(allUsers).start();
-    }
-
+    @FXML
     private void addUserAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/pages/AddUser.fxml"));
-        Parent root = loader.load();
-       //  ((UserEditController)loader.getController()).setMainController(this);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Welcome back");
-        stage.setScene(new Scene(root));
-        stage.show();
+        Parent root;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../views/UserAction.fxml"));
+        root = (Parent) fxmlLoader.load();
+        ProfileController controller =  (ProfileController)fxmlLoader.getController();
+        controller.setController(this);
+       // controller.editMode(selectedSong); //set mode to edit
+        Stage actionStage = new Stage();
+        Scene actionScene = new Scene(root);
+        actionStage.setScene(actionScene);
+        actionStage.show();
     }
 
-    private void createUser(ActionEvent event) {
-        userModel.addUser(email_input.getText(),password_input.getText());
-       //  mainController.refresh();
+    public void refresh() {
+
     }
 
 
     // TODO: should not be here just for testing cnn
-    private void fetchUsers() {
-        var test = userModel.getUserList();
-        for (User u : test){
-            System.out.println(u.getUserId());
-            System.out.println(u.getEmail());
+    //    private void setUsers() {
+//        fetchUsers();
+//        // TODO: Not working binding only some of the values
+//        Task<ObservableList<User>> allUsers = new Task<ObservableList<User>>() {
+//            @Override
+//            protected ObservableList<User> call() {
+//                return FXCollections.observableArrayList(userModel.getUserList());
+//            }
+//        };
+//        result_table.itemsProperty().bind(allUsers.valueProperty());
+//        new Thread(allUsers).start();
+//    }
 
-        }
-    }
 
 
 

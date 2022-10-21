@@ -1,0 +1,31 @@
+@import "bootstrap3.css";
+
+.inputFields{
+ -fx-background-color:#252526;
+     -fx-border-width: 0px 0px 0px 0px;
+     -fx-border-radius: 0px;
+     -fx-background-radius: 5px;
+}
+.browse{
+    -fx-background-color:#252526;
+     -fx-border-width: 0px 0px 0px 0px;
+     -fx-background-radius: 0px;
+       -fx-background-radius: 5px;
+     -fx-text-fill:white;
+}
+
+.add-action{
+-fx-background-color:#351c75;
+     -fx-border-width: 0px 0px 0px 0px;
+     -fx-background-radius: 0px;
+       -fx-background-radius: 5px;
+     -fx-text-fill:white;
+}
+
+#isActive{
+    -fx-text-fill:white;
+}
+
+#action_content{
+    -fx-background-color:#1e1e1e;
+}

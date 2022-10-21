@@ -23,12 +23,12 @@ public class DbUtilities {
     public static void changeScene(ActionEvent event, String fxmlFile, User user) {
         Parent root = null;
 
-        if (user.getEmail() != null && user.getEncryptedPassword() != null) {
+        if (user.getEmail() != null && user.getPassword() != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(DbUtilities.class.getResource(fxmlFile));
                 root = loader.load();
                 ProfileController pc = loader.getController();
-                pc.setUser(user);
+               // pc.setUser(user);
             } catch (IOException e) {
                 e.printStackTrace();
             }

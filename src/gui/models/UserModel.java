@@ -29,4 +29,5 @@ public class UserModel {
         User fetchedUser = userManager.createUser(email,password);
         userList.add(fetchedUser);
     }
+
 }

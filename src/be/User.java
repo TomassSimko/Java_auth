@@ -17,10 +17,10 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public int getUserId() {
+    public int getId() {
         return id;
     }
-    public void setUserId(int userId) {
+    public void setId(int userId) {
         this.id = userId;
     }
     public String getFirstName() {
@@ -41,10 +41,10 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getEncryptedPassword() {
+    public String getPassword() {
         return password;
     }
-    public void setEncryptedPassword(String encryptedPassword) {
+    public void setPassword(String encryptedPassword) {
         this.password = encryptedPassword;
     }
 

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,49 +10,80 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="351.0" prefWidth="400.0" stylesheets="@../css/userAction.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ProfileController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="300.0">
+      <VBox fx:id="action_content" prefHeight="352.0" prefWidth="400.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="360.0">
                <children>
-                  <Label text="Add User">
+                  <Label style="-fx-text-fill: white;" text="Add User">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets left="40.0" />
+               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="53.0" prefWidth="300.0">
                <children>
-                  <TextField alignment="TOP_LEFT" promptText="Email" />
+                  <TextField id="inputFields" alignment="TOP_LEFT" promptText="Password" styleClass="inputFields">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin></TextField>
+                  <TextField id="inputFields" alignment="TOP_LEFT" promptText="Email" styleClass="inputFields" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="53.0" prefWidth="300.0">
                <children>
-                  <TextField alignment="TOP_LEFT" promptText="Password" />
+                  <TextField id="inputFields" alignment="TOP_LEFT" promptText="First name" styleClass="inputFields">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin></TextField>
+                  <TextField id="inputFields" alignment="TOP_LEFT" promptText="Last name" styleClass="inputFields" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="300.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="300.0">
+               <VBox.margin>
+                  <Insets left="40.0" />
+               </VBox.margin>
                <children>
-                  <TextField alignment="TOP_LEFT" promptText="First name" />
+                  <TextField fx:id="file_absolute_path" editable="false" prefWidth="157.0" styleClass="inputFields" text="*not selected">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#openFileChoose" styleClass="browse" text="Browse">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="300.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="300.0">
                <children>
-                  <TextField alignment="TOP_LEFT" promptText="Last name" />
+                  <CheckBox fx:id="isActive" mnemonicParsing="false" text="isActive" textFill="#f5eeee">
+                     <font>
+                        <Font size="14.0" />
+                     </font></CheckBox>
                </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="113.0" prefWidth="300.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="360.0">
                <children>
-                  <Button mnemonicParsing="false" text="Add">
+                  <Button mnemonicParsing="false" onAction="#createUserAction" styleClass="add-action" text="Add">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" styleClass="info" text="Cancel" />
+                  <Button mnemonicParsing="false" styleClass="browse" text="Cancel" />
                </children>
+               <VBox.margin>
+                  <Insets left="40.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>

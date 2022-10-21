@@ -32,25 +32,26 @@ public class UsersController implements Initializable {
     private TableView<User> result_table;
 
     private UserModel userModel;
-    private MainController mainController;
-
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
+//    private MainController mainController;
+//
+//    public void setMainController(MainController mainController) {
+//        this.mainController = mainController;
+//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.userModel = new UserModel();
-        // setUsers();
-        add.setOnAction(this::createUser);
+         this.userModel = new UserModel();
+        setUsers();
+//        add.setOnAction(this::createUser);
     }
 
     private void setUsers() {
+        fetchUsers();
         // TODO: Not working binding only some of the values
-         result_table.setItems(userModel.getUserList());
+        // result_table.setItems(userModel.getUserList());
     }
 
-    private void openDashboardWindow(ActionEvent event) throws IOException {
+    private void addUserAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/pages/AddUser.fxml"));
         Parent root = loader.load();
        //  ((UserEditController)loader.getController()).setMainController(this);

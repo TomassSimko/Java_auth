@@ -5,23 +5,45 @@
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
     -fx-text-fill: #4E4F52;
-    -fx-background-color: #e5e5e5;
+   /* #4E4F52*/
+    -fx-background-color: #252526;
     -fx-min-height: 40;
 }
 
 .menuButton:hover{
-    -fx-background-color: #f3f3f3;
+    -fx-background-color: none;
+    -fx-text-fill:white;
+    -fx-border-width: 0px 0px 0px 3px;
+    -fx-border-color:#1b0e3c;
 }
 
 #header_menu{
-    -fx-background-color: #e5e5e5;
+    -fx-background-color: #2d2d30;
+}
+#header_title{
+    -fx-text-fill:white;
 }
 #drawer{
-    -fx-background-color:#e5e5e5;
+   /* -fx-background-color:#e5e5e5;*/
+    -fx-background-color:#252526;
+}
+
+#app_content{
+    -fx-background-color:#1e1e1e;
 }
 
 .table-view {
     -fx-focus-color: #cecece;
     -fx-effect: null;
     -fx-outer-border : #cecece;
+}
+
+#lblLogOut{
+     -fx-background-color:#351c75;
+     -fx-border-width: 0px 0px 0px 0px;
+     -fx-background-radius: 2px;
+}
+
+#lblLogOut:hover {
+     -fx-background-color:#1b0e3c;
 }

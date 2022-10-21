@@ -22,19 +22,22 @@ public class MainController implements Initializable {
     @FXML
     private Button usersRoute;
     @FXML
-    private AnchorPane acDashBord;
-    @FXML
     private Label lbl;
     @FXML
     private AnchorPane header_menu;
     @FXML
     private StackPane app_content;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
-        DashboardController dashboardController = fxmlLoader.getController();
+       // DashboardController dashboardController = fxmlLoader.getController();
+    }
+    public void btnDashboard(ActionEvent event) {
+        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
+    }
+    public void btnUsersOnClick(ActionEvent event) {
+        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardUsers.fxml");
     }
 
     private FXMLLoader loadFxmlPage(String path) {
@@ -51,35 +54,8 @@ public class MainController implements Initializable {
         return fxmlLoader;
     }
 
-
-//    private void auth(ActionEvent event) throws IOException {
-//        if(!user_email.getText().isBlank() || !user_password.getText().isBlank()) {
-//           //  utilities.login(event,user_email.getText(),user_password.getText());
-//            openDashboardWindow(event);
-//        }else {
-//            System.out.println("Username or Password cannot be empty");
-//        }
-//    }
-
-
-
-
-    // switch to dashboard page
-    public void btnDashboard(ActionEvent event) {
-        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
-        UsersController controller = fxmlLoader.getController();
-    }
-
-    // switch to users page
-    public void btnUsersOnClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardUsers.fxml");
-        UsersController controller = fxmlLoader.getController();
-        // controller.setMainController(this);
-    }
-
-    // log out user
     public void btnLogOutOnClick(ActionEvent event) {
+        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
     }
-
 
 }

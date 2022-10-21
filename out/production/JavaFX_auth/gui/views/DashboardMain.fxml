@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #fff;" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
@@ -22,7 +21,7 @@
                 <AnchorPane fx:id="drawer">
                     <AnchorPane prefWidth="127.0">
                         <Button fx:id="dashboardRoute" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutY="13.0" minHeight="53.0" mnemonicParsing="false" onAction="#btnDashboard" prefHeight="53.0" prefWidth="127.0" styleClass="menuButton" text="Dashboard" />
-                        <Button fx:id="usersRoute" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutY="53.0" mnemonicParsing="false" onAction="#btnUsersOnClick" prefHeight="78.0" prefWidth="127.0" styleClass="menuButton" text="Users" />
+                        <Button alignment="BASELINE_LEFT" contentDisplay="TOP" layoutY="53.0" mnemonicParsing="false" onAction="#btnUsersOnClick" prefHeight="78.0" prefWidth="127.0" styleClass="menuButton" text="Users" />
                     </AnchorPane>
                 </AnchorPane>
             </left>
@@ -39,11 +38,7 @@
             <top>
                 <AnchorPane fx:id="header_menu" prefHeight="42.0" prefWidth="753.0" BorderPane.alignment="CENTER">
                     <effect>
-                        <DropShadow height="50.0" radius="12.0" spread="0.15" width="0.0">
-                            <color>
-                                <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.7368420958518982" />
-                            </color>
-                        </DropShadow>
+                        <DropShadow height="22.03" radius="5.0075" spread="0.15" width="0.0" />
                     </effect>
                     <GridPane layoutX="14.0" layoutY="-15.0" prefHeight="60.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <columnConstraints>
@@ -55,19 +50,19 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                     <Label text="User Manager">
+                     <Label fx:id="header_title" text="User Manager">
                         <HBox.margin>
                            <Insets left="10.0" />
                         </HBox.margin>
                         <font>
-                           <Font name="Source Code Pro Black for Powerline" size="16.0" />
+                           <Font size="16.0" />
                         </font>
                      </Label>
                         </HBox>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                         </AnchorPane>
                         <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="200.0" GridPane.columnIndex="2">
-                            <Button fx:id="lblLogOut" contentDisplay="TOP" layoutY="300.0" mnemonicParsing="false" onAction="#btnLogOutOnClick" text="Log Out">
+                            <Button fx:id="lblLogOut" contentDisplay="TOP" layoutY="300.0" maxHeight="25.0" mnemonicParsing="false" onAction="#btnLogOutOnClick" prefHeight="25.0" prefWidth="63.0" text="Log Out">
                                 <HBox.margin>
                                     <Insets left="10.0" right="20.0" />
                                 </HBox.margin>

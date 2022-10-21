@@ -45,13 +45,6 @@ public class ProfileController implements Initializable {
         btn_logout.setOnAction(event ->
                 DbUtilities.changeScene(event,
                         "/MainWindow.fxml", null));
-//        put_changes.setOnAction(event ->
-//                DbUtilities.updateUser(event,user_id.getText(),user_email.getText(),first_name.getText(),last_name.getText()));
-
-//        delete_user.setOnAction(event ->
-//                DbUtilities.deleteUser(event,user_id.getText()));
-//        update_psw.setOnAction(event ->
-//                DbUtilities.updatePsw(event,user_id.getText(),user_psw.getText(),user_new_psw.getText()));
 
     }
 

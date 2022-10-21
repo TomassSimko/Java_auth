@@ -45,11 +45,19 @@
     -fx-focus-color: #252526;
     -fx-effect: null;
     -fx-outer-border : #252526;
-    -fx-background-color:#252526;
+     -fx-background-color: black;
+    -fx-text-fill:red;
+
+}
+.table-view .filler {
+    -fx-border-insets: 10;
 }
 
-
-
+.table-view .show-hide-columns-button {
+    -fx-background-color: red;
+    -fx-border-color: -fx-box-border;
+    -fx-border-insets: -1 -1 0 0;
+}
 
 #table_pane{
   -fx-background-color:#1e1e1e;
@@ -60,17 +68,17 @@
 
 #search_btn{
   -fx-background-color:#351c75;
-  -fx-border-width: 0px 0px 0px 0px;
-  -fx-background-radius: 2px;
-  -fx-text-fill:white;
+       -fx-border-width: 0px 0px 0px 0px;
+       -fx-background-radius: 0px;
+         -fx-background-radius: 5px;
+       -fx-text-fill:white;
 }
 
 #search_field{
-  -fx-border-width: 0px 0px 0px 0px;
-  -fx-border-radius: 0px;
-  -fx-background-radius: 0px;
-  -fx-background-color:#1e1e1e;
-  -fx-text-fill: #4E4F52;
+   -fx-background-color:#252526;
+       -fx-border-width: 0px 0px 0px 0px;
+       -fx-border-radius: 0px;
+       -fx-background-radius: 5px;
 }
 
 #userTable{
@@ -81,15 +89,66 @@
     -fx-background-color:#252526;
 }
 
+
+#password_col{
+    -fx-background-color:transparent;
+}
+
 #add_user{
-     -fx-background-color:#351c75;
-     -fx-border-width: 0px 0px 0px 0px;
-     -fx-background-radius: 2px;
-     -fx-text-fill:white;
+    -fx-background-color:#351c75;
+    -fx-border-width: 0px 0px 0px 0px;
+    -fx-background-radius: 0px;
+    -fx-background-radius: 5px;
+    -fx-text-fill:white;
 }
 .table-row-cell:selected {
-   -fx-background-color: yellow;
+   -fx-background-color: #252526;
+   -fx-text-fill:white;
 }
+
+.table-row-cell{
+    -fx-background-color:#252526;
+    -fx-text-fill:white;
+}
+
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+
+.table-view .column-header-background{
+    -fx-background-color:  #252526;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color:
+    -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
 
 
 

@@ -26,7 +26,14 @@ import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
 
-    public TextField search_field;
+    @FXML
+    private TableColumn<User,String> password_col;
+    @FXML
+    private TextField search_field;
+    @FXML
+    private TableColumn<User,String> first_name;
+    @FXML
+    private TableColumn<User,String> last_name;
     @FXML
     private TextField password_input;
     @FXML
@@ -47,6 +54,9 @@ public class UsersController implements Initializable {
         this.userModel = new UserModel();
         id_col.setCellValueFactory(new PropertyValueFactory<>("firstName"));       // setUsers();
         email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
+        last_name.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        first_name.setCellValueFactory(new PropertyValueFactory<>("email"));
+        password_col.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         result_table.setItems(userModel.getUserList());
 
     }

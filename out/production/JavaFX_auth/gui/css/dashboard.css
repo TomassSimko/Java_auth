@@ -1,11 +1,11 @@
 @import "bootstrap3.css";
 
+/* LAYOUT WITH DRAWER */
 .menuButton{
     -fx-border-width: 0px 0px 0px 0px;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
     -fx-text-fill: #4E4F52;
-   /* #4E4F52*/
     -fx-background-color: #252526;
     -fx-min-height: 40;
 }
@@ -32,11 +32,65 @@
     -fx-background-color:#1e1e1e;
 }
 
-.table-view {
-    -fx-focus-color: #cecece;
-    -fx-effect: null;
-    -fx-outer-border : #cecece;
+/* DASHBOARD INNER*/
+#active_users{
+  -fx-text-fill:#351c75;
 }
+#total_users{
+  -fx-text-fill:#351c75;
+}
+
+/* USERS TABLE */
+.table-view {
+    -fx-focus-color: #252526;
+    -fx-effect: null;
+    -fx-outer-border : #252526;
+    -fx-background-color:#252526;
+}
+#result_table{
+-fx-background-color:#252526;}
+
+#table_pane{
+  -fx-background-color:#1e1e1e;
+}
+/*.table_viewOf{
+   -fx-background-color:#252526;
+}*/
+
+#search_btn{
+-fx-background-color:#351c75;
+     -fx-border-width: 0px 0px 0px 0px;
+     -fx-background-radius: 2px;
+     -fx-text-fill:white;
+}
+
+#search_field{
+  -fx-border-width: 0px 0px 0px 0px;
+  -fx-border-radius: 0px;
+  -fx-background-radius: 0px;
+  -fx-background-color:#1e1e1e;
+  -fx-text-fill: #4E4F52;
+}
+
+#column{
+    -fx-text-fill: white;
+    -fx-border-width: 0px 0px 0px 0px;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+   /* -fx-background-color:#252526;*/
+}
+
+#add_user{
+     -fx-background-color:#351c75;
+     -fx-border-width: 0px 0px 0px 0px;
+     -fx-background-radius: 2px;
+     -fx-text-fill:white;
+}
+.table-row-cell:selected {
+   -fx-background-color: yellow;
+}
+
+
 
 #lblLogOut{
      -fx-background-color:#351c75;

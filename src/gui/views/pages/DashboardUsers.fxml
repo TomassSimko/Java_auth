@@ -7,15 +7,17 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.UsersController">
-    <BorderPane layoutX="500.0" layoutY="800.0" prefHeight="521.0" prefWidth="743.0" stylesheets="@../../css/dashboardUsers.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="@../../css/dashboard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.UsersController">
+    <BorderPane fx:id="table_pane" layoutX="500.0" layoutY="800.0" prefHeight="521.0" prefWidth="743.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <padding>
             <Insets left="30.0" right="30.0" />
         </padding>
@@ -31,8 +33,15 @@
                 <children>
                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                         <children>
-                            <TextField layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="291.0" promptText="search orders" text="search users" />
-                            <Button layoutX="300.0" layoutY="2.0" mnemonicParsing="false" prefHeight="26.0" text="Search">
+                            <TextField fx:id="search_field" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="291.0" promptText="search orders">
+                        <effect>
+                           <DropShadow height="44.72" radius="15.93">
+                              <color>
+                                 <Color red="0.6710526347160339" green="0.6555190086364746" blue="0.6555190086364746" />
+                              </color>
+                           </DropShadow>
+                        </effect></TextField>
+                            <Button fx:id="search_btn" layoutX="300.0" layoutY="2.0" mnemonicParsing="false" prefHeight="26.0" text="Search">
                         <styleClass>
                            <String fx:value="primary" />
                            <String fx:value="sm" />
@@ -41,7 +50,7 @@
                     </AnchorPane>
                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                   <children>
-                     <Button alignment="CENTER_RIGHT" layoutX="293.0" layoutY="4.0" mnemonicParsing="false" text="Add User" />
+                     <Button fx:id="add_user" alignment="CENTER_RIGHT" layoutX="293.0" layoutY="1.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="76.0" text="Add User" />
                   </children>
                </AnchorPane>
                 </children>
@@ -51,9 +60,9 @@
             </GridPane>
         </top>
         <center>
-            <TableView fx:id="result_table" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="result_table" editable="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../css/dashboard.css" BorderPane.alignment="CENTER">
                 <columns>
-                    <TableColumn prefWidth="75.0" text="id">
+                    <TableColumn fx:id="column2" prefWidth="75.0" text="id">
                         <cellValueFactory>
                             <PropertyValueFactory property="id" />
                         </cellValueFactory>

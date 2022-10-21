@@ -2,6 +2,9 @@ package gui.controller;
 
 import be.User;
 import gui.models.UserModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +44,9 @@ public class UsersController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
          this.userModel = new UserModel();
+      //   result_table.setItems(userModel.getUserList());
         setUsers();
+       // setUsers();
 //        add.setOnAction(this::createUser);
     }
 
@@ -49,6 +54,14 @@ public class UsersController implements Initializable {
         fetchUsers();
         // TODO: Not working binding only some of the values
         // result_table.setItems(userModel.getUserList());
+        Task<ObservableList<User>> allUsers = new Task<ObservableList<User>>() {
+            @Override
+            protected ObservableList<User> call() {
+                return FXCollections.observableArrayList(userModel.getUserList());
+            }
+        };
+        result_table.itemsProperty().bind(allUsers.valueProperty());
+        new Thread(allUsers).start();
     }
 
     private void addUserAction(ActionEvent event) throws IOException {

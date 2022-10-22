@@ -15,7 +15,7 @@ public class UserDAO {
     private static final String TABLE_USER = "user";
     private static final String COLUMN_USER_ID = "id";
     private static final String COLUMN_USERS_EMAIL = "email";
-    private static final String COLUMN_USER_FULLNAME = "full_name";
+    private static final String COLUMN_USER_FIRSTNAME = "first_name";
     private static final String COLUMN_USER_LASTNAME = "last_name";
     private static final String COLUMN_USERS_PASSWORD = "password";
 

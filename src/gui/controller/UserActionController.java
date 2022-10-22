@@ -94,8 +94,6 @@ public class UserActionController implements Initializable {
         labelUserAction.setText("Edit user");
         deleteOnAction.setDisable(false);
     }
-
-
     @FXML
     private void openFileChoose(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();

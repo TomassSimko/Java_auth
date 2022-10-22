@@ -12,6 +12,13 @@ public class UserDAO {
 
     private final DbConnection connection;
 
+    private static final String TABLE_USER = "user";
+    private static final String COLUMN_USER_ID = "id";
+    private static final String COLUMN_USERS_EMAIL = "email";
+    private static final String COLUMN_USER_FULLNAME = "full_name";
+    private static final String COLUMN_USER_LASTNAME = "last_name";
+    private static final String COLUMN_USERS_PASSWORD = "password";
+
     public UserDAO(){
         connection = new DbConnection();
     }
@@ -20,15 +27,15 @@ public class UserDAO {
         List<User> userList = new ArrayList<>();
 
         try (Connection con = connection.getConnection()) {
-            String sql = "SELECT * FROM user";
+            String sql = "SELECT * FROM " + TABLE_USER;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String email = rs.getString("email");
-                String passwordHash = rs.getString("password");
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
+                int id = rs.getInt( 1);
+                String email = rs.getString(2);
+                String passwordHash = rs.getString(3);
+                String firstName = rs.getString(4);
+                String lastName = rs.getString(5);
                 userList.add(new User(id, email, passwordHash, firstName, lastName));
             }
         } catch (SQLException ex) {
@@ -80,7 +87,7 @@ public class UserDAO {
 
     public void deleteUser(User currentUser) throws SQLException{
         try (Connection con = connection.getConnection()) {
-            String sql = "DELETE FROM user WHERE id = ?";
+            String sql = "DELETE FROM " + TABLE_USER + "WHERE" +  COLUMN_USER_ID + "= ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, currentUser.getId());
             preparedStatement.execute();

@@ -2,30 +2,22 @@ package gui.controller;
 
 import be.User;
 import gui.models.UserModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
-
     @FXML
     private TableColumn<User,String> password_col;
     @FXML
@@ -40,14 +32,12 @@ public class UsersController implements Initializable {
     private TextField email_input;
     @FXML
     private TableView<User> result_table;
-
     @FXML
     private TableColumn<User, Integer> id_col;
     @FXML
     private TableColumn<User, String> email_col;
 
     private UserModel userModel;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -58,7 +48,6 @@ public class UsersController implements Initializable {
         first_name.setCellValueFactory(new PropertyValueFactory<>("email"));
         password_col.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         result_table.setItems(userModel.getUserList());
-
     }
 
     @FXML

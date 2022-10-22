@@ -19,17 +19,17 @@ import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
     @FXML
-    private TableColumn<User,String> password_col;
+    private TableColumn<User,String[]> role;
     @FXML
-    private TextField search_field;
+    private TableColumn<User,String> blob;
+    @FXML
+    private TableColumn<User,Boolean> isActive;
+    @FXML
+    private TableColumn<User,String> password_col;
     @FXML
     private TableColumn<User,String> first_name;
     @FXML
     private TableColumn<User,String> last_name;
-    @FXML
-    private TextField password_input;
-    @FXML
-    private TextField email_input;
     @FXML
     private TableView<User> result_table;
     @FXML
@@ -37,19 +37,34 @@ public class UsersController implements Initializable {
     @FXML
     private TableColumn<User, String> email_col;
 
+    @FXML
+    private TextField search_field;
+    @FXML
+    private TextField password_input;
+    @FXML
+    private TextField email_input;
+
     private UserModel userModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.userModel = new UserModel();
-        id_col.setCellValueFactory(new PropertyValueFactory<>("id"));       // setUsers();
+        setTable();
+    }
+
+    private void setTable() {
+        id_col.setCellValueFactory(new PropertyValueFactory<>("id"));
         email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
         last_name.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        first_name.setCellValueFactory(new PropertyValueFactory<>("email"));
-        password_col.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        first_name.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        password_col.setCellValueFactory(new PropertyValueFactory<>("password"));
+       // isActive.setCellFactory(new PropertyValueFactory<>();
+       // password_col.setCellValueFactory(new PropertyValueFactory<>("role"));
+        // blob.setCellValueFactory(new PropertyValueFactory<>("role"));
         result_table.setItems(userModel.getUserList());
     }
 
+    // TODO: Reformat this call new stage method
     @FXML
     private void addUserAction(ActionEvent event) throws IOException {
         Parent root;
@@ -57,7 +72,7 @@ public class UsersController implements Initializable {
         root = (Parent) fxmlLoader.load();
         ProfileController controller =  (ProfileController)fxmlLoader.getController();
         controller.setController(this);
-       // controller.editMode(selectedSong); //set mode to edit
+       // controller.editMode(selectedUser); //set mode to edit
         Stage actionStage = new Stage();
         Scene actionScene = new Scene(root);
         actionStage.setScene(actionScene);

@@ -61,36 +61,38 @@
         <center>
             <TableView fx:id="result_table" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                 <columns>
-                    <TableColumn fx:id="id_col" prefWidth="98.38613700866699" text="id">
+                    <TableColumn fx:id="id_col" prefWidth="93.0" text="Id">
 <!--                        <cellValueFactory>-->
 <!--                            <PropertyValueFactory property="id" />-->
 <!--                        </cellValueFactory>-->
                     </TableColumn>
-                    <TableColumn fx:id="email_col" prefWidth="110.99992370605469" text="Email">
+                    <TableColumn fx:id="email_col" prefWidth="153.0" text="Email">
 <!--                        <cellValueFactory>-->
 <!--                            <PropertyValueFactory property="email" />-->
 <!--                        </cellValueFactory>-->
                     </TableColumn>
-                    <TableColumn fx:id="password_col" prefWidth="88.49972534179688" text="Password">
+                    <TableColumn fx:id="password_col" prefWidth="163.0" text="Password">
 <!--                        <cellValueFactory>-->
 <!--                            <PropertyValueFactory property="password" />-->
 <!--                        </cellValueFactory>-->
                     </TableColumn>
-                    <TableColumn fx:id="first_name" prefWidth="157.500244140625" text="First Name">
+                    <TableColumn fx:id="first_name" prefWidth="103.0" text="First name">
 <!--                        <cellValueFactory>-->
 <!--                            <PropertyValueFactory property="firstName" />-->
 <!--                        </cellValueFactory>-->
                     </TableColumn>
-                    <TableColumn fx:id="last_name" prefWidth="86.24969482421875" text="Last Name">
+                    <TableColumn fx:id="last_name" prefWidth="83.0" text="Last name">
 <!--                        <cellValueFactory>-->
 <!--                            <PropertyValueFactory property="lastName" />-->
 <!--                        </cellValueFactory>-->
                     </TableColumn>
-               <TableColumn prefWidth="159.75030517578125" text="Profile Picture URL">
+               <TableColumn fx:id="blob" prefWidth="163.0" text="Profile Picture URL">
 <!--                   <cellValueFactory>-->
 <!--                       <PropertyValueFactory property="lastName" />-->
 <!--                   </cellValueFactory>-->
                </TableColumn>
+               <TableColumn fx:id="isActive" prefWidth="163.0" text="IsActive" />
+               <TableColumn fx:id="role" prefWidth="103.0" text="Role" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

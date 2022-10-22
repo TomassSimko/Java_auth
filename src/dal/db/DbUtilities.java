@@ -1,6 +1,6 @@
 package dal.db;
 
-import gui.controller.ProfileController;
+import gui.controller.UserActionController;
 import be.User;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
@@ -27,7 +27,7 @@ public class DbUtilities {
             try {
                 FXMLLoader loader = new FXMLLoader(DbUtilities.class.getResource(fxmlFile));
                 root = loader.load();
-                ProfileController pc = loader.getController();
+                UserActionController pc = loader.getController();
                // pc.setUser(user);
             } catch (IOException e) {
                 e.printStackTrace();

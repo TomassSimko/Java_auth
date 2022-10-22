@@ -40,13 +40,13 @@ public class UserDAO {
     public User createUser(String email, String passwordHash,String firstName,String lastName) throws SQLException{
         try (Connection con = connection.getConnection()) {
             String sql = "INSERT INTO user(email,password,first_name,last_name) VALUES (?,?,?,?)";
-            PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setString(1, email);
-            pstmt.setString(2, passwordHash);
-            pstmt.setString(3, firstName);
-            pstmt.setString(4, lastName);
-            pstmt.executeUpdate();
-            ResultSet rs = pstmt.getGeneratedKeys();
+            PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, passwordHash);
+            preparedStatement.setString(3, firstName);
+            preparedStatement.setString(4, lastName);
+            preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
             return new User(id, email, passwordHash,firstName,lastName);
@@ -56,4 +56,36 @@ public class UserDAO {
         return null;
     }
 
+    public User updateUser(User user,String email, String passwordHash,String firstName,String lastName) throws SQLException{
+        try (Connection con = connection.getConnection()) {
+            String sql = "UPDATE user SET email = ?, password = ? , first_name = ? ,last_name = ? WHERE id = ? ";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, passwordHash);
+            preparedStatement.setString(3, firstName);
+            preparedStatement.setString(4, lastName);
+            preparedStatement.setInt(5, user.getId());
+            preparedStatement.executeUpdate();
+
+            user.setEmail(email);
+            user.setPassword(passwordHash);
+            user.setFirstName(firstName);
+            user.setFirstName(lastName);
+            return user;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void deleteUser(User currentUser) throws SQLException{
+        try (Connection con = connection.getConnection()) {
+            String sql = "DELETE FROM user WHERE id = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, currentUser.getId());
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

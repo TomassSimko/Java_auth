@@ -25,9 +25,23 @@ public class UserModel {
         return userList;
     }
 
-    public void addUser(String email,String password,String firstName,String lastName){
+    public void createUser(String email, String password, String firstName, String lastName){
         User fetchedUser = userManager.createUser(email,password,firstName,lastName);
+        if(fetchedUser != null){
+            System.out.println("Result set success");
+        }
         userList.add(fetchedUser);
     }
 
+    public void updateUser(User user,String email,String password,String firstName,String lastName){
+        User updateUser = userManager.updateUser(user,email,password,firstName,lastName);
+        if(updateUser != null){
+            System.out.println("Result set updated");
+        }
+    }
+
+    public void deleteUser(User currentUser) {
+        userManager.deleteUser(currentUser);
+        userList.remove(currentUser);
+    }
 }

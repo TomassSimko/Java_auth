@@ -1,5 +1,6 @@
 package gui.controller;
 
+import be.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +40,9 @@ public class MainController implements Initializable {
     public void btnUsersOnClick(ActionEvent event) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardUsers.fxml");
     }
+    public void btnLogOutOnClick(ActionEvent event) {
+        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
+    }
 
     private FXMLLoader loadFxmlPage(String path) {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -54,8 +58,9 @@ public class MainController implements Initializable {
         return fxmlLoader;
     }
 
-    public void btnLogOutOnClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
-    }
+
+
+
+
 
 }

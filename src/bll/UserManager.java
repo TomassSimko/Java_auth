@@ -20,7 +20,7 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public User createUser(String email, String password){
-        return userService.registerUser(email,password);
+    public User createUser(String email, String password,String firstName,String lastName){
+        return userService.createUser(email,password,firstName,lastName);
     }
 }

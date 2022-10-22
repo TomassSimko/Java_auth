@@ -14,6 +14,14 @@ import java.util.ResourceBundle;
 public class ProfileController implements Initializable {
 
     @FXML
+     private TextField first_name;
+    @FXML
+     private TextField last_name;
+    @FXML
+     private TextField password;
+    @FXML
+     private TextField email;
+    @FXML
     private TextField file_absolute_path;
     private UserModel userModel;
 
@@ -22,7 +30,7 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.userModel = new UserModel();
 
     }
     public void setController(UsersController usersController) {
@@ -31,7 +39,8 @@ public class ProfileController implements Initializable {
 
     @FXML
     private void createUserAction(ActionEvent event) {
-      userModel.addUser("email","password");
+      // no validation yet
+      userModel.addUser(email.getText(),password.getText(),first_name.getText(),last_name.getText());
       parentController.refresh();
    }
    @FXML

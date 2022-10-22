@@ -2,7 +2,6 @@ package dal.repositories;
 
 import be.User;
 import dal.db.DbConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,17 +37,19 @@ public class UserDAO {
         return userList;
     }
 
-    public User registerUser(String email,String passwordHash) throws SQLException{
+    public User createUser(String email, String passwordHash,String firstName,String lastName) throws SQLException{
         try (Connection con = connection.getConnection()) {
-            String sql = "INSERT INTO user(email, password) VALUES (?,?)";
+            String sql = "INSERT INTO user(email,password,first_name,last_name) VALUES (?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, email);
             pstmt.setString(2, passwordHash);
+            pstmt.setString(3, firstName);
+            pstmt.setString(4, lastName);
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-            return new User(id, email, passwordHash,"","");
+            return new User(id, email, passwordHash,firstName,lastName);
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

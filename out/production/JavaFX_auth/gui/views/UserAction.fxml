@@ -28,20 +28,20 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="53.0" prefWidth="300.0">
                <children>
-                  <TextField id="inputFields" alignment="TOP_LEFT" promptText="Password" styleClass="inputFields">
+                  <TextField id="inputFields" fx:id="first_name" alignment="TOP_LEFT" promptText="First name" styleClass="inputFields">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin></TextField>
-                  <TextField id="inputFields" alignment="TOP_LEFT" promptText="Email" styleClass="inputFields" />
+                  <TextField id="inputFields" fx:id="last_name" alignment="TOP_LEFT" promptText="Last name" styleClass="inputFields" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="53.0" prefWidth="300.0">
                <children>
-                  <TextField id="inputFields" alignment="TOP_LEFT" promptText="First name" styleClass="inputFields">
+                  <TextField id="inputFields" fx:id="password" alignment="TOP_LEFT" promptText="Password" styleClass="inputFields">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin></TextField>
-                  <TextField id="inputFields" alignment="TOP_LEFT" promptText="Last name" styleClass="inputFields" />
+                  <TextField id="inputFields" fx:id="email" alignment="TOP_LEFT" promptText="Email" styleClass="inputFields" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="300.0">

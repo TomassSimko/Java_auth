@@ -27,9 +27,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User registerUser(String email, String password) {
+    public User createUser(String email, String password,String firstName,String lastName) {
         try{
-            return userDAO.registerUser(email,password);
+            return userDAO.createUser(email,password,firstName,lastName);
         }catch (SQLException ex){
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
         }

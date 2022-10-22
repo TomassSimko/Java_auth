@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface IUserService {
     List<User> getUsers();
-
-    User registerUser(String email, String password);
+    User createUser(String email, String password, String firstName, String lastName);
 }

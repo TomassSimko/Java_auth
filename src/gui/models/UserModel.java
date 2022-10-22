@@ -25,8 +25,8 @@ public class UserModel {
         return userList;
     }
 
-    public void addUser(String email,String password){
-        User fetchedUser = userManager.createUser(email,password);
+    public void addUser(String email,String password,String firstName,String lastName){
+        User fetchedUser = userManager.createUser(email,password,firstName,lastName);
         userList.add(fetchedUser);
     }
 

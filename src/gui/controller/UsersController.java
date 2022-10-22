@@ -42,7 +42,7 @@ public class UsersController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.userModel = new UserModel();
-        id_col.setCellValueFactory(new PropertyValueFactory<>("firstName"));       // setUsers();
+        id_col.setCellValueFactory(new PropertyValueFactory<>("id"));       // setUsers();
         email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
         last_name.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         first_name.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -65,7 +65,8 @@ public class UsersController implements Initializable {
     }
 
     public void refresh() {
-
+        result_table.getItems().clear();
+        result_table.setItems(userModel.getUserList());
     }
 
 

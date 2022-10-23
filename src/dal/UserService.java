@@ -12,7 +12,6 @@ public class UserService implements IUserService {
     private final UserDAO userDAO;
 
     public UserService() {
-
         this.userDAO = new UserDAO();
     }
 

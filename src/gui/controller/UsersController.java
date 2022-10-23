@@ -9,11 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -28,7 +27,7 @@ public class UsersController implements Initializable {
     @FXML
     private TableColumn<User, String> blob;
     @FXML
-    private TableColumn<User, Boolean> isActive;
+    private TableColumn<User, Boolean> activated;
     @FXML
     private TableColumn<User, String> password_col;
     @FXML
@@ -55,14 +54,14 @@ public class UsersController implements Initializable {
     }
 
     private void setTable() {
+
         id_col.setCellValueFactory(new PropertyValueFactory<>("id"));
         email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
         last_name.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         first_name.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         password_col.setCellValueFactory(new PropertyValueFactory<>("password"));
-        // isActive.setCellFactory(new PropertyValueFactory<>();
-        // password_col.setCellValueFactory(new PropertyValueFactory<>("role"));
-        // blob.setCellValueFactory(new PropertyValueFactory<>("role"));
+       //  activated.setCellValueFactory(new PropertyValueFactory<>("isActive"));
+        blob.setCellValueFactory(new PropertyValueFactory<>("pictureURL"));
         result_table.setItems(userModel.getUserList());
     }
 

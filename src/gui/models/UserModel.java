@@ -6,6 +6,7 @@ import bll.UserManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
 import java.util.List;
 
 // model used for front end
@@ -14,7 +15,7 @@ public class UserModel {
     private final IUserManager userManager;
     private ObservableList<User> userList;
 
-    private User sessionUser;
+  //  private User sessionUser;
     // Idea is when logged in setting session user maybe should be in different class idk yet
 
     public UserModel(){
@@ -33,16 +34,16 @@ public class UserModel {
         return userList;
     }
 
-    public void createUser(String email, String password, String firstName, String lastName){
-        User fetchedUser = userManager.createUser(email,password,firstName,lastName);
+    public void createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL){
+        User fetchedUser = userManager.createUser(email,password,firstName,lastName,isActive,pictureURL);
         if(fetchedUser != null){
             System.out.println("Result set success");
         }
         userList.add(fetchedUser);
     }
 
-    public void updateUser(User user,String email,String password,String firstName,String lastName){
-        User updateUser = userManager.updateUser(user,email,password,firstName,lastName);
+    public void updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL){
+        User updateUser = userManager.updateUser(user,email,password,firstName,lastName,isActive,pictureURL);
         if(updateUser != null){
             System.out.println("Result set updated");
         }

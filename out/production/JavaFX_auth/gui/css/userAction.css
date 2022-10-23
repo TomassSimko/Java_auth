@@ -1,10 +1,11 @@
 @import "bootstrap3.css";
 
 .inputFields{
- -fx-background-color:#252526;
+     -fx-background-color:#252526;
      -fx-border-width: 0px 0px 0px 0px;
      -fx-border-radius: 0px;
      -fx-background-radius: 5px;
+     -fx-text-fill:white;
 }
 .browse{
     -fx-background-color:#252526;

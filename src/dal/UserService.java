@@ -3,6 +3,8 @@ package dal;
 import be.User;
 import bll.UserManager;
 import dal.repositories.UserDAO;
+
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,9 +28,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User createUser(String email, String password,String firstName,String lastName) {
+    public User createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) {
         try{
-            return userDAO.createUser(email,password,firstName,lastName);
+            return userDAO.createUser(email,password,firstName,lastName,isActive,pictureURL);
         }catch (SQLException ex){
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -37,9 +39,9 @@ public class UserService implements IUserService {
 
 
     @Override
-    public User updateUser(User user,String email, String password,String firstName,String lastName) {
+    public User updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) {
         try{
-            return userDAO.updateUser(user,email,password,firstName,lastName);
+            return userDAO.updateUser(user,email,password,firstName,lastName,isActive,pictureURL);
         }catch (SQLException ex){
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
         }

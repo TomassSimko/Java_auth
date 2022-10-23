@@ -91,7 +91,7 @@
 <!--                       <PropertyValueFactory property="lastName" />-->
 <!--                   </cellValueFactory>-->
                </TableColumn>
-               <TableColumn fx:id="isActive" prefWidth="163.0" text="IsActive" />
+               <TableColumn fx:id="activated" prefWidth="163.0" text="Activated" />
                <TableColumn fx:id="role" prefWidth="103.0" text="Role" />
                 </columns>
                 <columnResizePolicy>

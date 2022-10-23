@@ -1,6 +1,8 @@
 package gui.controller;
 
 import be.User;
+import bll.utitls.cryptography.CryptoEngine;
+import bll.utitls.validations.ValidationHelper;
 import gui.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,9 +15,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,6 +46,8 @@ public class UserActionController implements Initializable {
     private boolean isEditable;
     private User currentUser;
 
+    private CryptoEngine cryptoEngine;
+
 
     // testing
 
@@ -56,9 +57,11 @@ public class UserActionController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         isEditable = false;
         this.userModel = new UserModel();
+        this.cryptoEngine = new CryptoEngine();
         cancelOnAction.setOnAction(this::closeWindow);
 
     }
+
     private void closeWindow(ActionEvent event) {
         Stage stage;
         stage = (Stage) cancelOnAction.getScene().getWindow();
@@ -69,19 +72,27 @@ public class UserActionController implements Initializable {
         this.parentController = usersController;
     }
 
+
+    // TODO : ADD GENERIC ALERT BOX
     @FXML
     private void createUserAction(ActionEvent event) {
         if (!isEditable) {
-            // no validation yet
-            userModel.createUser(
-                    email.getText().trim(),
-                    password.getText().trim(),
-                    first_name.getText().trim(),
-                    last_name.getText().trim(),
-                    isActive.selectedProperty().getValue(),
-                    sendFile
-                   //  file_absolute_path.getText().trim()
-            );
+            if (!ValidationHelper.validateEmail(email.getText())) {
+                System.out.println("Wong email");
+            } else if (!ValidationHelper.validatePassword(password.getText())) {
+                System.out.println("Wong password");
+            } else {
+                String hashedPassword = cryptoEngine.Hash(password.getText());
+                userModel.createUser(
+                        email.getText().trim(),
+                        hashedPassword,
+                        first_name.getText().trim(),
+                        last_name.getText().trim(),
+                        isActive.selectedProperty().getValue(),
+                        sendFile
+                );
+                closeAndUpdate();
+            }
         } else {
             userModel.updateUser(currentUser,
                     email.getText().trim(),
@@ -91,7 +102,12 @@ public class UserActionController implements Initializable {
                     isActive.isSelected(),
                     sendFile
             );
+            closeAndUpdate();
         }
+
+    }
+
+    private void closeAndUpdate() {
         parentController.refresh();
         Stage stage;
         stage = (Stage) confirm_action.getScene().getWindow();
@@ -103,21 +119,25 @@ public class UserActionController implements Initializable {
         currentUser = user;
 
         password.setText(currentUser.getPassword());
+        password.setEditable(false);
         email.setText(currentUser.getEmail());
         first_name.setText(currentUser.getFirstName());
         last_name.setText(currentUser.getLastName());
         isActive.selectedProperty().set(currentUser.isActive());
+
+        // not loading actual file when updating it does not fetches the same file
         file_absolute_path.setText(currentUser.getPictureURL());
         confirm_action.setText("UPDATE");
         labelUserAction.setText("Edit user");
         deleteOnAction.setDisable(false);
     }
+
     @FXML
-    private void openFileChoose(ActionEvent event) throws FileNotFoundException {
+    private void openFileChoose(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPEG Files", "*.jpeg"),
-                new FileChooser.ExtensionFilter("PNG Files", "*.png","png")
+                new FileChooser.ExtensionFilter("PNG Files", "*.png", "png")
         );
 
         File file = fileChooser.showOpenDialog(null);

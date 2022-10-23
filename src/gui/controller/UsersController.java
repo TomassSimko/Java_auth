@@ -60,7 +60,7 @@ public class UsersController implements Initializable {
         last_name.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         first_name.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         password_col.setCellValueFactory(new PropertyValueFactory<>("password"));
-       //  activated.setCellValueFactory(new PropertyValueFactory<>("isActive"));
+      //  activated.setCellValueFactory(new PropertyValueFactory<>("isActive")); NOT WORKING ACTIVATED VALUE READ PROP
         blob.setCellValueFactory(new PropertyValueFactory<>("pictureURL"));
         result_table.setItems(userModel.getUserList());
     }

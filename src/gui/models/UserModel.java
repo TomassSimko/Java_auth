@@ -14,10 +14,18 @@ public class UserModel {
     private final IUserManager userManager;
     private ObservableList<User> userList;
 
+    private User sessionUser;
+    // Idea is when logged in setting session user maybe should be in different class idk yet
+
     public UserModel(){
         userManager = new UserManager();
         getUserList();
     }
+
+//    public User getUserById() {
+//        User fetchedUsers = userManager.getUserById();
+//        return sessionUser;
+//    }
 
     public ObservableList<User> getUserList() {
         List<User> fetchedUsers = userManager.getUsers();

@@ -15,9 +15,9 @@ public class UserDAO {
     private static final String TABLE_USER = "user";
     private static final String COLUMN_USER_ID = "id";
     private static final String COLUMN_USERS_EMAIL = "email";
+    private static final String COLUMN_USERS_PASSWORD = "password";
     private static final String COLUMN_USER_FIRSTNAME = "first_name";
     private static final String COLUMN_USER_LASTNAME = "last_name";
-    private static final String COLUMN_USERS_PASSWORD = "password";
 
     public UserDAO(){
         connection = new DbConnection();
@@ -46,7 +46,12 @@ public class UserDAO {
 
     public User createUser(String email, String passwordHash,String firstName,String lastName) throws SQLException{
         try (Connection con = connection.getConnection()) {
-            String sql = "INSERT INTO user(email,password,first_name,last_name) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO" + TABLE_USER + "("
+                    + COLUMN_USERS_EMAIL + ","
+                    + COLUMN_USERS_PASSWORD + ","
+                    + COLUMN_USER_FIRSTNAME + ","
+                    + COLUMN_USER_LASTNAME + ")"
+                    + "VALUES (?,?,?,?)";
             PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, passwordHash);
@@ -65,7 +70,12 @@ public class UserDAO {
 
     public User updateUser(User user,String email, String passwordHash,String firstName,String lastName) throws SQLException{
         try (Connection con = connection.getConnection()) {
-            String sql = "UPDATE user SET email = ?, password = ? , first_name = ? ,last_name = ? WHERE id = ? ";
+            String sql = "UPDATE" + TABLE_USER +  "SET"
+                    + COLUMN_USERS_EMAIL + "= ?" + ","
+                    + COLUMN_USERS_PASSWORD + "= ?" + ","
+                    + COLUMN_USER_FIRSTNAME + "= ?" + ","
+                    + COLUMN_USER_LASTNAME + "= ?" + "WHERE"
+                    + COLUMN_USER_ID + "= ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, passwordHash);

@@ -1,2 +1,2 @@
-# Java_auth
+# Java_CRUD
 ## Simple JavaFx CRUD with auth

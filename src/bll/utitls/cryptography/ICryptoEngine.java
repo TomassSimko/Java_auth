@@ -1,4 +1,8 @@
 package bll.utitls.cryptography;
 
-public class ICryptoEngine {
+public interface ICryptoEngine {
+
+    String Hash(String text);
+
+    Boolean HashCheck(String hash, String text);
 }

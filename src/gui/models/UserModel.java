@@ -50,7 +50,6 @@ public class UserModel {
 
     public void filteredTableOfUsers(String query) {
         List<User> filteredResult = userManager.search(userManager.getUsers(), query);
-        //Clear all songs from the library and add the songs from the temporary list to the library list.
         userList.clear();
         userList.addAll(filteredResult);
     }

@@ -8,7 +8,6 @@ import dal.UserService;
 import java.io.File;
 import java.util.List;
 
-// Connects GUI with Dal out the db service
 public class UserManager implements IUserManager {
 
     private final IUserService userService;

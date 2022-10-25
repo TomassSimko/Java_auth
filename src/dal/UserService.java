@@ -24,7 +24,7 @@ public class UserService implements IUserService {
         } catch (SQLException ex) {
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return List.of();
     }
 
     @Override

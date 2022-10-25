@@ -15,9 +15,6 @@ public class UserModel {
     private final IUserManager userManager;
     private ObservableList<User> userList;
 
-  //  private User sessionUser;
-    // Idea is when logged in setting session user maybe should be in different class idk yet
-
     public UserModel(){
         userManager = new UserManager();
         getUserList();

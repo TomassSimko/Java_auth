@@ -121,8 +121,6 @@ public class UserActionController implements Initializable {
         first_name.setText(currentUser.getFirstName());
         last_name.setText(currentUser.getLastName());
         isActive.selectedProperty().set(currentUser.isActive());
-
-        // not loading actual file when updating it does not fetches the same file
         file_absolute_path.setText(currentUser.getPictureURL());
         confirm_action.setText("UPDATE");
         labelUserAction.setText("Edit user");

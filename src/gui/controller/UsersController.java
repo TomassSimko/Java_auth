@@ -2,6 +2,9 @@ package gui.controller;
 
 import be.User;
 import gui.models.UserModel;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,9 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -28,8 +28,7 @@ public class UsersController implements Initializable {
     private TableColumn<User, String[]> role;
     @FXML
     private TableColumn<User, String> blob;
-    @FXML
-    private TableColumn<User, Boolean> activated;
+
     @FXML
     private TableColumn<User, String> password_col;
     @FXML
@@ -42,6 +41,8 @@ public class UsersController implements Initializable {
     private TableColumn<User, Integer> id_col;
     @FXML
     private TableColumn<User, String> email_col;
+    @FXML
+    private TableColumn<User, Boolean> isActive;
 
     @FXML
     private TextField search_field;
@@ -57,14 +58,14 @@ public class UsersController implements Initializable {
     }
 
     private void setTable() {
+        id_col.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
+        email_col.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
+        first_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
+        last_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
+        password_col.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassword()));
+        blob.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPictureURL()));
+        isActive.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isActive()));
 
-        id_col.setCellValueFactory(new PropertyValueFactory<>("id"));
-        email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
-        last_name.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        first_name.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        password_col.setCellValueFactory(new PropertyValueFactory<>("password"));
-      //  activated.setCellValueFactory(new PropertyValueFactory<>("isActive")); NOT WORKING ACTIVATED VALUE READ PROP
-        blob.setCellValueFactory(new PropertyValueFactory<>("pictureURL"));
         result_table.setItems(userModel.getUserList());
     }
 
@@ -78,25 +79,21 @@ public class UsersController implements Initializable {
         actionStage.setScene(new Scene(root));
         actionStage.show();
     }
+
     @FXML
     private void handleClick() {
-        result_table.setRowFactory(new Callback<>()
-        {
+        result_table.setRowFactory(new Callback<>() {
             @Override
-            public TableRow<User> call(TableView<User> param)
-            {
+            public TableRow<User> call(TableView<User> param) {
                 TableRow<User> row = new TableRow<>();
-                row.setOnMouseClicked(new EventHandler<>()
-                {
+                row.setOnMouseClicked(new EventHandler<>() {
                     @Override
-                    public void handle(MouseEvent event)
-                    {
-                        if (event.getClickCount() == 2 && (! row.isEmpty()) )
-                        {
+                    public void handle(MouseEvent event) {
+                        if (event.getClickCount() == 2 && (!row.isEmpty())) {
                             Parent root = null;
-                           // System.out.println(row.getIndex());
+                            // System.out.println(row.getIndex());
                             User serialData = row.getItem();
-                           // System.out.println(serialData.getId());
+                            // System.out.println(serialData.getId());
                             try {
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/UserAction.fxml"));
                                 root = loader.load();
@@ -117,6 +114,7 @@ public class UsersController implements Initializable {
             }
         });
     }
+
     public void refresh() {
         result_table.getItems().clear();
         result_table.setItems(userModel.getUserList());

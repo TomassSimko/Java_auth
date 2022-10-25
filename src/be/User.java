@@ -3,28 +3,28 @@ package be;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private int id;
+    private Integer id;
     private String email;
     private String password;
     private String firstName;
     private String lastName;
-    private boolean isActive;
+    private Boolean activated;
 
     private String pictureURL;
 
-    public User(int id, String email, String password, String firstName, String lastName, boolean isActive, String pictureURL){
+    public User(Integer id, String email, String password, String firstName, String lastName, Boolean activated, String pictureURL){
         this.id = id;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.isActive = isActive;
+        this.activated = activated;
         this.pictureURL = pictureURL;
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(int userId) {
+    public void setId(Integer userId) {
         this.id = userId;
     }
     public String getFirstName() {
@@ -53,11 +53,11 @@ public class User implements Serializable {
     }
 
     public boolean isActive() {
-        return isActive;
+        return activated;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setActivated(Boolean active) {
+        activated = active;
     }
 
     public String getPictureURL() {

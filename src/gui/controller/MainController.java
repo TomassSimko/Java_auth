@@ -32,7 +32,6 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
-       // DashboardController dashboardController = fxmlLoader.getController();
     }
     public void btnDashboard(ActionEvent event) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");

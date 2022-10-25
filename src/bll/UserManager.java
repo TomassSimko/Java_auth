@@ -1,6 +1,7 @@
 package bll;
 
 import be.User;
+import bll.utitls.validations.SearchHelper;
 import dal.IUserService;
 import dal.UserService;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public class UserManager implements IUserManager {
 
     private final IUserService userService;
+    private final SearchHelper searchHelper;
 
     public UserManager(){
        this.userService = new UserService();
+       this.searchHelper = new SearchHelper();
     }
     @Override
     public List<User> getUsers() {
@@ -32,5 +35,10 @@ public class UserManager implements IUserManager {
     @Override
     public void deleteUser(User currentUser) {
         userService.deleteUser(currentUser);
+    }
+
+    @Override
+    public List<User> search(List<User> users, String query) {
+        return searchHelper.search(users,query);
     }
 }

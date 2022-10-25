@@ -23,15 +23,9 @@ public class UserModel {
         getUserList();
     }
 
-//    public User getUserById() {
-//        User fetchedUsers = userManager.getUserById();
-//        return sessionUser;
-//    }
-
     public ObservableList<User> getUserList() {
         List<User> fetchedUsers = userManager.getUsers();
-        userList = FXCollections.observableArrayList(fetchedUsers);
-        return userList;
+        return userList = FXCollections.observableArrayList(fetchedUsers);
     }
 
     public void createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL){
@@ -53,4 +47,12 @@ public class UserModel {
         userManager.deleteUser(currentUser);
         userList.remove(currentUser);
     }
+
+    public void filteredTableOfUsers(String query) {
+        List<User> filteredResult = userManager.search(userManager.getUsers(), query);
+        //Clear all songs from the library and add the songs from the temporary list to the library list.
+        userList.clear();
+        userList.addAll(filteredResult);
+    }
+
 }

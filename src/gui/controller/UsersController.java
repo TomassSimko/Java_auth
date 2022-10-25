@@ -23,6 +23,8 @@ import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
     @FXML
+    private Button search_btn;
+    @FXML
     private TableColumn<User, String[]> role;
     @FXML
     private TableColumn<User, String> blob;
@@ -51,6 +53,7 @@ public class UsersController implements Initializable {
         this.userModel = new UserModel();
         setTable();
         handleClick();
+        setSearch();
     }
 
     private void setTable() {
@@ -119,18 +122,9 @@ public class UsersController implements Initializable {
         result_table.setItems(userModel.getUserList());
     }
 
-
-//
-//    // TODO: should not be here just for testing cnn
-//        private void setUsers() {
-//        // TODO: Not working binding only some of the values
-//        Task<ObservableList<User>> allUsers = new Task<ObservableList<User>>() {
-//            @Override
-//            protected ObservableList<User> call() {
-//                return FXCollections.observableArrayList(userModel.getUserList());
-//            }
-//        };
-//        result_table.itemsProperty().bind(allUsers.valueProperty());
-//        new Thread(allUsers).start();
-//    }
+    private void setSearch() {
+        search_field.textProperty().addListener((obs, oldVal, newVal) -> {
+            userModel.filteredTableOfUsers(newVal);
+        });
+    }
 }

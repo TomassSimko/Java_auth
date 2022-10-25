@@ -10,4 +10,6 @@ public interface IUserManager {
     User createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL);
     User updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL);
     void deleteUser(User currentUser);
+
+    List<User> search(List<User> users, String query);
 }

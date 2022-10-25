@@ -48,9 +48,6 @@ public class UserActionController implements Initializable {
 
     private CryptoEngine cryptoEngine;
 
-
-    // testing
-
     private File sendFile;
 
     @Override

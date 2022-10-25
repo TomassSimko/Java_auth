@@ -17,24 +17,19 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #fff;" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
     <StackPane id="app_content" layoutY="-9.0" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <left>
-                <AnchorPane fx:id="drawer">
+                <AnchorPane fx:id="drawer" prefHeight="386.0" prefWidth="127.0">
                     <AnchorPane prefHeight="183.0" prefWidth="127.0">
                         <Button fx:id="dashboardRoute" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutY="13.0" minHeight="53.0" mnemonicParsing="false" onAction="#btnDashboard" prefHeight="53.0" prefWidth="127.0" styleClass="menuButton" text="Dashboard" />
                         <Button alignment="BASELINE_LEFT" contentDisplay="TOP" layoutX="-1.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnUsersOnClick" prefHeight="78.0" prefWidth="127.0" styleClass="menuButton" text="Users" />
-                  <Button fx:id="lblLogOut" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutX="-1.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnLogOutOnClick" prefHeight="78.0" prefWidth="127.0" text="Log out">
-                     <styleClass>
-                        <String fx:value="menuButton" />
-                        <String fx:value="primary" />
-                     </styleClass>
-                  </Button>
                     </AnchorPane>
-               <Label layoutX="26.0" layoutY="425.0" text="TTT @2022">
-                  <font>
-                     <Font size="15.0" />
-                  </font>
-               </Label>
+               <Button fx:id="lblLogOut" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutX="-1.0" layoutY="470.0" mnemonicParsing="false" onAction="#btnLogOutOnClick" prefHeight="40.0" prefWidth="128.0" text="Log out">
+                  <styleClass>
+                     <String fx:value="menuButton" />
+                     <String fx:value="primary" />
+                  </styleClass>
+               </Button>
                 </AnchorPane>
             </left>
             <center>

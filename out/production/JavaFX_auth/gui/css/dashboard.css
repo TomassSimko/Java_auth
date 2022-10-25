@@ -11,11 +11,15 @@
 }
 
 .menuButton:hover{
-    -fx-background-color: none;
+    -fx-background-color:#351c75;
     -fx-text-fill:white;
-    -fx-border-width: 0px 0px 0px 3px;
+    -fx-border-width: 0px 0px 0px 0px;
     -fx-border-color:#1b0e3c;
 }
+.menuButton:focus{ -fx-background-color:#351c75;
+
+}
+
 
 #header_menu{
     -fx-background-color: #2d2d30;
@@ -150,10 +154,8 @@
 }
 
 
-
-
 #lblLogOut{
-     -fx-background-color:#351c75;
+     -fx-background-color:#1e1e1e;
      -fx-border-width: 0px 0px 0px 0px;
      -fx-background-radius: 2px;
 }

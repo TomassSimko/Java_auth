@@ -21,7 +21,6 @@ public class User implements Serializable {
         this.isActive = isActive;
         this.pictureURL = pictureURL;
     }
-
     public int getId() {
         return id;
     }

@@ -16,10 +16,6 @@
     -fx-border-width: 0px 0px 0px 0px;
     -fx-border-color:#1b0e3c;
 }
-.menuButton:focus{ -fx-background-color:#351c75;
-
-}
-
 
 #header_menu{
     -fx-background-color: #2d2d30;

@@ -65,6 +65,13 @@ public class UsersController implements Initializable {
         password_col.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassword()));
         blob.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPictureURL()));
         isActive.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isActive()));
+        isActive.setCellFactory(col -> new TableCell<User, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty) ;
+                setText(empty ? null : item ? "✅" : "❌" );
+            }
+        });
 
         result_table.setItems(userModel.getUserList());
     }

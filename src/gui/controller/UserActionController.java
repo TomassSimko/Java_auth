@@ -2,15 +2,14 @@ package gui.controller;
 
 import be.User;
 import bll.utitls.cryptography.CryptoEngine;
+import bll.utitls.validations.NotificationHelper;
+import bll.utitls.validations.ValidationErrorType;
 import bll.utitls.validations.ValidationHelper;
 import gui.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -70,14 +69,14 @@ public class UserActionController implements Initializable {
     }
 
 
-    // TODO : ADD GENERIC ALERT BOX
+
     @FXML
     private void createUserAction(ActionEvent event) {
         if (!isEditable) {
             if (!ValidationHelper.validateEmail(email.getText())) {
-                System.out.println("Wong email");
+                NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_EMAIL, Alert.AlertType.ERROR);
             } else if (!ValidationHelper.validatePassword(password.getText())) {
-                System.out.println("Wong password");
+                NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_PASSWORD, Alert.AlertType.ERROR);
             } else {
                 String hashedPassword = cryptoEngine.Hash(password.getText());
                 userModel.createUser(

@@ -122,7 +122,7 @@ public class UserDAO {
 
     public void deleteUser(User currentUser) throws SQLException {
         try (Connection con = connection.getConnection()) {
-            String sql = "DELETE FROM " + TABLE_USER + "WHERE" + COLUMN_USER_ID + "= ?";
+            String sql = "DELETE FROM " + TABLE_USER + " WHERE " +  COLUMN_USER_ID + "= ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, currentUser.getId());
             preparedStatement.execute();

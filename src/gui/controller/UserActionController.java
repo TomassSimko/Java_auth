@@ -75,9 +75,10 @@ public class UserActionController implements Initializable {
         if (!isEditable) {
             if (!ValidationHelper.validateEmail(email.getText())) {
                 NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_EMAIL, Alert.AlertType.ERROR);
-            } else if (!ValidationHelper.validatePassword(password.getText())) {
-                NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_PASSWORD, Alert.AlertType.ERROR);
-            } else {
+//            } else if (!ValidationHelper.validatePassword(password.getText())) {
+//                NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_PASSWORD, Alert.AlertType.ERROR);
+           }
+            else {
                 String hashedPassword = cryptoEngine.Hash(password.getText());
                 userModel.createUser(
                         email.getText().trim(),
@@ -145,9 +146,6 @@ public class UserActionController implements Initializable {
     public void deleteUserOnAction(ActionEvent event) {
         System.out.println("deleting user ...");
         userModel.deleteUser(currentUser);
-        parentController.refresh();
-        Stage stage;
-        stage = (Stage) deleteOnAction.getScene().getWindow();
-        stage.close();
+        closeAndUpdate();
     }
 }

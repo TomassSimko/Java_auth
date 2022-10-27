@@ -11,17 +11,13 @@ public class DbConnection {
     private static final String PROP_FILE = "resources/DbConfig.properties";
     private String url, dbUser, dbPassword, driverUrl;
 
-    public DbConnection() {
-        try {
+    public DbConnection() throws IOException{
             Properties properties = new Properties();
             properties.load(new FileInputStream(PROP_FILE));
             dbUser = properties.getProperty("db.username");
             dbPassword = properties.getProperty("db.password");
             url = properties.getProperty("db.url");
             driverUrl = properties.getProperty("db.driver.url");
-        } catch (IOException ex) {
-            System.out.println("Cannot read the property file " + ex);
-        }
     }
 
     public Connection getConnection() {

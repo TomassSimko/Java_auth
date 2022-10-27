@@ -1,12 +1,9 @@
 package gui.controller;
 
 import gui.models.UserModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 
 import java.net.URL;
@@ -19,11 +16,13 @@ public class DashboardController implements Initializable
     @FXML
     private Label active_users;
 
+    private UserModel userModel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // testing for now just return length of user list
-        UserModel userModel = new UserModel();
-        active_users.setText(String.valueOf(userModel.getUserList().size()));
+//        UserModel userModel = new UserModel(); // how the fuck to get the Interface in here
+//        active_users.setText(String.valueOf(userModel.getUserList().size()));
     }
     // do stuff for dashboard
 }

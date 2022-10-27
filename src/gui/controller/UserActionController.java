@@ -68,11 +68,14 @@ public class UserActionController implements Initializable {
         this.parentController = usersController;
     }
 
-
-
     @FXML
     private void createUserAction(ActionEvent event) {
         if (!isEditable) {
+            if(validated){
+                // if validated created user
+            }else {
+                // display Alert
+            }
             if (!ValidationHelper.validateEmail(email.getText())) {
                 NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_EMAIL, Alert.AlertType.ERROR);
 //            } else if (!ValidationHelper.validatePassword(password.getText())) {

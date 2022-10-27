@@ -1,11 +1,13 @@
 package dal.repositories;
 
+import be.Role;
 import be.User;
 import dal.db.DbConnection;
 
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +24,10 @@ public class UserDAO {
     private static final String COLUMN_USER_LASTNAME = "last_name";
     private static final String COLUMN_USER_IS_ACTIVE = "is_active";
     private static final String COLUMN_USER_PROFILE_PICTURE = "profile_picture";
-
     private static final String COLUMN_USER_PICTURE_PATH = "picture_url";
 
 
-    public UserDAO() {
+    public UserDAO() throws IOException {
         connection = new DbConnection();
     }
 
@@ -37,6 +38,9 @@ public class UserDAO {
             String sql = "SELECT * FROM " + TABLE_USER;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
+            HashMap<Integer,Role> roleHashMap = getRoleHashMap();
+            // this is preparation for
+            // composition  manipulation plump this one in the User object once roles created inside
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String email = rs.getString(2);
@@ -53,9 +57,12 @@ public class UserDAO {
         return userList;
     }
 
+    // TODO : FIX RETURNING NULL VALUES
     public User createUser(String email, String passwordHash, String firstName, String lastName, boolean isActive, File pictureURL) throws SQLException {
+        User createdUser = null;
         try (Connection con = connection.getConnection()) {
             FileInputStream stream = new FileInputStream(pictureURL);
+
             String sql = "INSERT INTO " + TABLE_USER + "("
                     + COLUMN_USERS_EMAIL + ","
                     + COLUMN_USERS_PASSWORD + ","
@@ -78,16 +85,16 @@ public class UserDAO {
             ResultSet rs = preparedStatement.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-            return new User(id, email, passwordHash, firstName, lastName, isActive, pictureURL.getAbsolutePath());
+            createdUser = new User(id, email, passwordHash, firstName, lastName, isActive, pictureURL.getAbsolutePath());
         } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return createdUser;
     }
 
     public User updateUser(User user, String email, String passwordHash, String firstName, String lastName, boolean isActive, File pictureURL) throws SQLException {
         try (Connection con = connection.getConnection()) {
-            FileInputStream stream = new FileInputStream(pictureURL);
+            FileInputStream stream = new FileInputStream(pictureURL); // get rid of this here
             String sql = "UPDATE " + TABLE_USER + " SET "
                     + COLUMN_USERS_EMAIL + "= ?" + ","
                     + COLUMN_USERS_PASSWORD + "= ?" + ","
@@ -129,5 +136,17 @@ public class UserDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private HashMap<Integer, Role> getRoleHashMap() {
+        RoleDAO roleDAO = new RoleDAO();
+        List<Role> fetchedRoles = roleDAO.getAllRoles();
+        HashMap<Integer,Role> roleHashMap = new HashMap<>();
+        for (Role role: fetchedRoles) {
+            if(!roleHashMap.containsKey(role.getId())) {
+                roleHashMap.put(role.getId(),role);
+            }
+        }
+        return roleHashMap;
     }
 }

@@ -10,6 +10,10 @@ public class User implements Serializable {
     private String lastName;
     private Boolean activated;
 
+    // TODO: ADD
+    // File photoFile
+    // List<Role> roles
+
     private String pictureURL;
 
     public User(Integer id, String email, String password, String firstName, String lastName, Boolean activated, String pictureURL){

@@ -1,5 +1,6 @@
 package gui.models;
 
+import be.Role;
 import be.User;
 import bll.IUserManager;
 import bll.UserManager;
@@ -45,4 +46,8 @@ public class UserModel {
         userList.addAll(filteredResult);
     }
 
+//    private List<Role> getAllRoles(){
+//        List<Role> fetchedRoles = userManager.getAllRoles();
+//        return roleList = FXCollections.observableArrayList(fetchedRoles);
+//    }
 }

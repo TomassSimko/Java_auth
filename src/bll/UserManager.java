@@ -16,7 +16,6 @@ public class UserManager implements IUserManager {
 
     private final IUserService userService;
     private final SearchHelper searchHelper;
-
     private final ICryptoEngine cryptoEngine;
 
     public UserManager() throws UserManagerException {

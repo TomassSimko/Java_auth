@@ -1,12 +1,15 @@
 package gui.controller;
 
+import be.Role;
 import be.User;
 import bll.exceptions.UserDAOException;
+import bll.exceptions.UserManagerException;
 import bll.exceptions.UserServiceException;
 import bll.utitls.cryptography.CryptoEngine;
 import bll.utitls.validations.NotificationHelper;
 import bll.utitls.validations.ValidationErrorType;
 import bll.utitls.validations.ValidationHelper;
+import gui.models.RoleModel;
 import gui.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,9 +20,12 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserActionController implements Initializable {
+    @FXML
+    private ChoiceBox<Role> roles_box;
     @FXML
     private CheckBox isActive;
     @FXML
@@ -42,6 +48,7 @@ public class UserActionController implements Initializable {
     private TextField file_absolute_path;
     private UserModel userModel;
 
+    private RoleModel roleModel;
     UsersController parentController;
 
     private boolean isEditable;
@@ -55,8 +62,17 @@ public class UserActionController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         isEditable = false;
         isValidated = false;
-      //  this.userModel = new UserModel();
+        try {
+            this.userModel = new UserModel();
+            this.roleModel = new RoleModel();
+        } catch (UserManagerException e) {
+            throw new RuntimeException(e);
+        }
 
+        List<Role> rolesList = roleModel.getRolesList();
+        for (Role role : rolesList) {
+            roles_box.getItems().add(role);
+        }
         cancelOnAction.setOnAction(this::closeWindow);
 
     }
@@ -72,7 +88,7 @@ public class UserActionController implements Initializable {
     }
 
     @FXML
-    private void createUserAction(ActionEvent event) throws UserServiceException, UserDAOException {
+    private void createUserAction(ActionEvent event) throws UserDAOException {
         if(!isEditable) {
             if(validateUserInput()){
                 userModel.createUser(
@@ -98,7 +114,7 @@ public class UserActionController implements Initializable {
         }
     }
 
-    private void closeAndUpdate() throws UserServiceException, UserDAOException {
+    private void closeAndUpdate() throws UserDAOException {
         parentController.refresh();
         Stage stage;
         stage = (Stage) confirm_action.getScene().getWindow();
@@ -116,6 +132,7 @@ public class UserActionController implements Initializable {
         last_name.setText(currentUser.getLastName());
         isActive.selectedProperty().set(currentUser.isActive());
         file_absolute_path.setText(currentUser.getPictureURL());
+       // roles_box.setValue(currentUser.getRoles());
         confirm_action.setText("UPDATE");
         labelUserAction.setText("Edit user");
         deleteOnAction.setDisable(false);

@@ -41,8 +41,6 @@ public class RoleDAO implements IRoleDAO {
                         rs.getString(2)
                 ));
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return roleList;
     }

@@ -38,7 +38,7 @@ public class DashboardController implements Initializable {
         // UserModel userModel = new UserModel(); // how the fuck to get the Interface in here
         try {
             active_users.setText(String.valueOf(userModel.getUserList().size()));
-        } catch (UserDAOException | UserServiceException e) {
+        } catch (UserDAOException  e) {
             throw new RuntimeException(e);
         }
     }

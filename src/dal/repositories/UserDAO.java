@@ -29,6 +29,8 @@ public class UserDAO implements IUserDAO {
         connection = new DbConnection();
     }
 
+   //  TODO : Implement many to many for roles and fix saving only file path not blob
+
     public List<User> getUsers() throws Exception {
         List<User> userList = new ArrayList<>();
 
@@ -68,7 +70,7 @@ public class UserDAO implements IUserDAO {
         return userList;
     }
 
-    // TODO : FIX RETURNING NULL VALUES
+    // TODO : FIX RETURNING CREATE USER
     public User createUser(String email, String passwordHash, String firstName, String lastName, boolean isActive, File pictureURL) throws Exception {
         User createdUser = null;
         try (Connection con = connection.getConnection()) {
@@ -97,7 +99,7 @@ public class UserDAO implements IUserDAO {
             ResultSet rs = preparedStatement.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-         ///   createdUser = new User(id, email, passwordHash, firstName, lastName, isActive, photoFile, roles, pictureURL.getAbsolutePath());
+         //  createdUser = new User(id, email, passwordHash, firstName, lastName, isActive, photoFile, roles, pictureURL.getAbsolutePath());
         }
         return createdUser;
     }

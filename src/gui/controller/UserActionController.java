@@ -1,6 +1,8 @@
 package gui.controller;
 
 import be.User;
+import bll.exceptions.UserDAOException;
+import bll.exceptions.UserServiceException;
 import bll.utitls.cryptography.CryptoEngine;
 import bll.utitls.validations.NotificationHelper;
 import bll.utitls.validations.ValidationErrorType;
@@ -45,15 +47,16 @@ public class UserActionController implements Initializable {
     private boolean isEditable;
     private User currentUser;
 
-    private CryptoEngine cryptoEngine;
-
     private File sendFile;
+
+    private boolean isValidated;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         isEditable = false;
-        this.userModel = new UserModel();
-        this.cryptoEngine = new CryptoEngine();
+        isValidated = false;
+      //  this.userModel = new UserModel();
+
         cancelOnAction.setOnAction(this::closeWindow);
 
     }
@@ -69,23 +72,12 @@ public class UserActionController implements Initializable {
     }
 
     @FXML
-    private void createUserAction(ActionEvent event) {
-        if (!isEditable) {
-            if(validated){
-                // if validated created user
-            }else {
-                // display Alert
-            }
-            if (!ValidationHelper.validateEmail(email.getText())) {
-                NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_EMAIL, Alert.AlertType.ERROR);
-//            } else if (!ValidationHelper.validatePassword(password.getText())) {
-//                NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_PASSWORD, Alert.AlertType.ERROR);
-           }
-            else {
-                String hashedPassword = cryptoEngine.Hash(password.getText());
+    private void createUserAction(ActionEvent event) throws UserServiceException, UserDAOException {
+        if(!isEditable) {
+            if(validateUserInput()){
                 userModel.createUser(
                         email.getText().trim(),
-                        hashedPassword,
+                        password.getText().trim(),
                         first_name.getText().trim(),
                         last_name.getText().trim(),
                         isActive.selectedProperty().getValue(),
@@ -93,7 +85,7 @@ public class UserActionController implements Initializable {
                 );
                 closeAndUpdate();
             }
-        } else {
+        }else if(validateUserInput()){
             userModel.updateUser(currentUser,
                     email.getText().trim(),
                     password.getText().trim(),
@@ -104,10 +96,9 @@ public class UserActionController implements Initializable {
             );
             closeAndUpdate();
         }
-
     }
 
-    private void closeAndUpdate() {
+    private void closeAndUpdate() throws UserServiceException, UserDAOException {
         parentController.refresh();
         Stage stage;
         stage = (Stage) confirm_action.getScene().getWindow();
@@ -146,7 +137,21 @@ public class UserActionController implements Initializable {
         }
     }
 
-    public void deleteUserOnAction(ActionEvent event) {
+    // TODO: This validation sucks must be repaired
+    private boolean validateUserInput(){
+        if(!first_name.getText().isEmpty() || !last_name.getText().isEmpty() || !password.getText().isEmpty() || !email.getText().isEmpty() || sendFile != null){
+            if(!ValidationHelper.validateEmail(email.getText())){
+                NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_EMAIL, Alert.AlertType.ERROR);
+            }else if(!ValidationHelper.validatePassword(password.getText())){
+                NotificationHelper.displayAlert(ValidationErrorType.BADLY_FORMATTED_PASSWORD, Alert.AlertType.ERROR);
+            }
+        }else {
+            isValidated = true;
+        }
+        return isValidated;
+    }
+
+    public void deleteUserOnAction(ActionEvent event) throws UserServiceException, UserDAOException {
         System.out.println("deleting user ...");
         userModel.deleteUser(currentUser);
         closeAndUpdate();

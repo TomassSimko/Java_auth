@@ -1,54 +1,36 @@
 package dal;
 
 import be.User;
-import bll.exceptions.UserDAOException;
-import bll.exceptions.UserManagerException;
 import dal.repositories.UserDAO;
+import dal.repositories.interfaces.IUserDAO;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserService implements IUserService {
-    private final UserDAO userDAO;
+    private final IUserDAO userDAO;
 
-    public UserService(UserDAO userDAO) throws UserManagerException {
-        this.userDAO = userDAO;
+    public UserService() throws Exception {
+        this.userDAO = new UserDAO();
     }
 
     @Override
-    public List<User> getUsers() throws UserDAOException{
-        try {
-            return userDAO.getUsers();
-        } catch (SQLException ex) {
-            throw new UserDAOException("Could not retrieve users",ex);
-        }
+    public List<User> getUsers() throws Exception {
+        return userDAO.getUsers();
     }
 
     @Override
-    public User createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws UserDAOException  {
-        try{
-            return userDAO.createUser(email,password,firstName,lastName,isActive,pictureURL);
-        }catch (SQLException ex){
-            throw new UserDAOException("Could not create user with email " + email ,ex);
-        }
+    public User createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws Exception {
+        return userDAO.createUser(email, password, firstName, lastName, isActive, pictureURL);
     }
 
     @Override
-    public User updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws UserDAOException {
-        try{
-            return userDAO.updateUser(user,email,password,firstName,lastName,isActive,pictureURL);
-        }catch (SQLException ex){
-            throw new UserDAOException("Could not update user with id " + user.getId() ,ex);
-        }
+    public void updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws Exception {
+        userDAO.updateUser(user, email, password, firstName, lastName, isActive, pictureURL);
     }
 
     @Override
-    public void deleteUser(User currentUser) throws UserDAOException{
-        try{
-             userDAO.deleteUser(currentUser);
-        }catch (SQLException ex){
-            throw new UserDAOException("Could not delete user with id " + currentUser.getId() ,ex);
-        }
+    public void deleteUser(User currentUser) throws Exception {
+        userDAO.deleteUser(currentUser);
     }
 }

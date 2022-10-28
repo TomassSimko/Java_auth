@@ -1,6 +1,9 @@
 package gui.controller;
 
 import be.User;
+import bll.exceptions.UserDAOException;
+import bll.exceptions.UserManagerException;
+import bll.exceptions.UserServiceException;
 import gui.models.UserModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -49,15 +52,25 @@ public class UsersController implements Initializable {
 
     private UserModel userModel;
 
+    public UsersController() throws UserManagerException{
+        this.userModel = new UserModel();
+    }
+    public void setUserModel(UserModel model){
+         this.userModel = model;
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.userModel = new UserModel();
-        setTable();
+        try {
+            setTable();
+            setSearch();
+        } catch (UserServiceException | UserDAOException e) {
+            throw new RuntimeException(e);
+        }
         handleClick();
-        setSearch();
+
     }
 
-    private void setTable() {
+    private void setTable() throws UserDAOException, UserServiceException {
         id_col.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         email_col.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
         first_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
@@ -122,14 +135,18 @@ public class UsersController implements Initializable {
         });
     }
 
-    public void refresh() {
+    public void refresh() throws UserDAOException {
         result_table.getItems().clear();
         result_table.setItems(userModel.getUserList());
     }
 
-    private void setSearch() {
+    private void setSearch() throws UserDAOException {
         search_field.textProperty().addListener((obs, oldVal, newVal) -> {
-            userModel.filteredTableOfUsers(newVal);
+            try {
+                userModel.filteredTableOfUsers(newVal);
+            } catch (UserDAOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }

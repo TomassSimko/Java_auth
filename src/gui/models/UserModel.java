@@ -16,10 +16,9 @@ public class UserModel {
     private final IUserManager userManager;
     private ObservableList<User> userList;
 
-    public UserModel(IUserManager userManager) throws UserDAOException {
-       // this.userManager = new UserManager();
-        this.userManager = userManager;
-        getUserList();
+    public UserModel() throws UserManagerException {
+        this.userManager = new UserManager();
+       // getUserList();
     }
 
     public ObservableList<User> getUserList() throws UserDAOException {
@@ -35,7 +34,7 @@ public class UserModel {
     public void updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws UserDAOException {
         userManager.updateUser(user,email,password,firstName,lastName,isActive,pictureURL);
     }
-    public void deleteUser(User currentUser) throws UserDAOException {
+    public void deleteUser(User currentUser) throws UserDAOException{
         userManager.deleteUser(currentUser);
         userList.remove(currentUser);
     }

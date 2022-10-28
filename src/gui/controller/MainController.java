@@ -1,6 +1,11 @@
 package gui.controller;
 
 import be.User;
+import bll.exceptions.UserDAOException;
+import bll.exceptions.UserManagerException;
+import bll.exceptions.UserServiceException;
+import gui.models.IUserModel;
+import gui.models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,24 +34,45 @@ public class MainController implements Initializable {
     @FXML
     private StackPane app_content;
 
+    private UserModel userModel;
+
+    // THIS SHOULD BRING THE MODEL AND SHOULD BE CREATED
+
+    // Take a look at the user model factory
+    // fix sending user model from one class to other
+    // Implement IUserModel to work across the layered methods
+    // implement fetching all roles from the database
+
+    // introduce session user singleton that stores the currently signed user with given access roles
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            this.userModel =  new UserModel();
+        } catch (UserManagerException e) {
+            throw new RuntimeException(e);
+        }
+
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
+        ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
     }
     public void btnDashboard(ActionEvent event) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
+        ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
     }
     public void btnUsersOnClick(ActionEvent event) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardUsers.fxml");
+       ((UsersController)fxmlLoader.getController()).setUserModel(userModel);
     }
     public void btnLogOutOnClick(ActionEvent event) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
+       ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
     }
 
     private FXMLLoader loadFxmlPage(String path) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
-            fxmlLoader.load(getClass().getResource(path).openStream());
+            fxmlLoader.load(Objects.requireNonNull(getClass().getResource(path)).openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,10 +82,4 @@ public class MainController implements Initializable {
 
         return fxmlLoader;
     }
-
-
-
-
-
-
 }

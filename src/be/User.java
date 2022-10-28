@@ -1,6 +1,8 @@
 package be;
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
     private Integer id;
@@ -9,21 +11,20 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private Boolean activated;
-
-    // TODO: ADD
-    // File photoFile
-    // List<Role> roles
-
+    private File photoFile;
     private String pictureURL;
+    private List<Role> roles;
 
-    public User(Integer id, String email, String password, String firstName, String lastName, Boolean activated, String pictureURL){
+    public User(Integer id, String email, String password, String firstName, String lastName, Boolean activated, File photoFile, String pictureURL,List<Role> roles){
         this.id = id;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.activated = activated;
+        this.photoFile = photoFile;
         this.pictureURL = pictureURL;
+        this.roles = roles;
     }
     public Integer getId() {
         return id;
@@ -70,6 +71,22 @@ public class User implements Serializable {
 
     public void setPictureURL(String pictureURL) {
         this.pictureURL = pictureURL;
+    }
+
+    public File getPhotoFile() {
+        return photoFile;
+    }
+
+    public void setPhotoFile(File photoFile) {
+        this.photoFile = photoFile;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     //  public String getFullName() {

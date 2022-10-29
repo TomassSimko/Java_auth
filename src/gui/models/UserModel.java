@@ -1,6 +1,5 @@
 package gui.models;
 
-import be.Role;
 import be.User;
 import bll.IUserManager;
 import bll.UserManager;
@@ -11,8 +10,6 @@ import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.util.List;
-
-
 public class UserModel {
     private final IUserManager userManager;
     private ObservableList<User> userList;
@@ -45,9 +42,4 @@ public class UserModel {
         userList.clear();
         userList.addAll(filteredResult);
     }
-
-//    private List<Role> getAllRoles(){
-//        List<Role> fetchedRoles = userManager.getAllRoles();
-//        return roleList = FXCollections.observableArrayList(fetchedRoles);
-//    }
 }

@@ -2,6 +2,7 @@ package dal.repositories;
 
 import be.Role;
 import be.User;
+import bll.exceptions.UserDAOException;
 import dal.db.DbConnection;
 import dal.repositories.interfaces.IUserDAO;
 

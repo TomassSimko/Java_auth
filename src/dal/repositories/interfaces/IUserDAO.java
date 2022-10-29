@@ -1,6 +1,7 @@
 package dal.repositories.interfaces;
 
 import be.User;
+import bll.exceptions.UserDAOException;
 
 import java.io.File;
 import java.sql.SQLException;

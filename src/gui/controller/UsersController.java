@@ -55,6 +55,7 @@ public class UsersController implements Initializable {
     public UsersController() throws UserManagerException{
         this.userModel = new UserModel();
     }
+
     public void setUserModel(UserModel model){
          this.userModel = model;
     }

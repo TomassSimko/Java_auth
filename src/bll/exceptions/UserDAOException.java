@@ -10,8 +10,4 @@ public class UserDAOException extends SQLException {
     public UserDAOException(String message,Throwable cause){
         super(message,cause);
     }
-
-    public UserDAOException(String message){
-        super(message);
-    }
 }

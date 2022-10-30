@@ -2,7 +2,6 @@ package dal.repositories;
 
 import be.Role;
 import be.User;
-import bll.exceptions.UserDAOException;
 import dal.db.DbConnection;
 import dal.repositories.interfaces.IUserDAO;
 
@@ -57,15 +56,6 @@ public class UserDAO implements IUserDAO {
                         rs.getString(7),
                         roles
                        ));
-
-//                int id = rs.getInt(1);
-//                String email = rs.getString(2);
-//                String passwordHash = rs.getString(3);
-//                String firstName = rs.getString(4);
-//                String lastName = rs.getString(5);
-//                boolean isActive = rs.getBoolean(6);
-//                String picturePath = rs.getString(8);
-
             }
         }
         return userList;

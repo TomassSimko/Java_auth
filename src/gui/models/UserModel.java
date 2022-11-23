@@ -16,7 +16,6 @@ public class UserModel {
 
     public UserModel() throws UserManagerException {
         this.userManager = new UserManager();
-       // getUserList();
     }
 
     public ObservableList<User> getUserList() throws UserDAOException {
@@ -24,13 +23,13 @@ public class UserModel {
         return userList = FXCollections.observableArrayList(fetchedUsers);
     }
 
-    public void createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws UserDAOException {
-        User fetchedUser = userManager.createUser(email,password,firstName,lastName,isActive,pictureURL);
+    public void createUser(String email, String password, String userName, boolean isActive) throws UserDAOException {
+        User fetchedUser = userManager.createUser(email,password,userName,isActive);
         userList.add(fetchedUser);
     }
 
-    public void updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws UserDAOException {
-        userManager.updateUser(user,email,password,firstName,lastName,isActive,pictureURL);
+    public void updateUser(User user, String email, String password, String userName, boolean isActive) throws UserDAOException {
+        userManager.updateUser(user,email,password,userName,isActive);
     }
     public void deleteUser(User currentUser) throws UserDAOException{
         userManager.deleteUser(currentUser);

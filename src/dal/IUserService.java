@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface IUserService {
     List<User> getUsers() throws Exception;
-    User createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws Exception;
-    void updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws Exception;
+    User createUser(String email, String password, String userName, boolean isActive ) throws Exception;
+    void updateUser(User user, String email, String password, String userName, boolean isActive) throws Exception;
     void deleteUser(User currentUser) throws Exception;
 
     }

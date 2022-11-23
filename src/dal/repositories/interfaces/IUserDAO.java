@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IUserDAO {
     List<User> getUsers() throws Exception;
-    User createUser(String email, String passwordHash, String firstName, String lastName, boolean isActive, File pictureURL) throws Exception;
-    void updateUser(User user, String email, String passwordHash, String firstName, String lastName, boolean isActive, File pictureURL) throws Exception;
+    User createUser(String email, String passwordHash, String username, boolean isActive) throws Exception;
+    void updateUser(User user, String email, String passwordHash, String username,boolean isActive) throws Exception;
     void deleteUser(User currentUser) throws Exception;
 }

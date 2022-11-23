@@ -74,10 +74,8 @@ public class UsersController implements Initializable {
     private void setTable() throws UserDAOException, UserServiceException {
         id_col.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         email_col.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
-        first_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
-        last_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
+        first_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUserName()));
         password_col.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassword()));
-        blob.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPictureURL()));
         isActive.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isActive()));
         isActive.setCellFactory(col -> new TableCell<User, Boolean>() {
             @Override

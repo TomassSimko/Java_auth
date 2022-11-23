@@ -36,19 +36,19 @@ public class UserManager implements IUserManager {
         }
     }
     @Override
-    public User createUser(String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws UserDAOException {
+    public User createUser(String email, String password, String userName, boolean isActive) throws UserDAOException {
         String hashedPassword = cryptoEngine.Hash(password);
         try{
-            return userService.createUser(email,hashedPassword,firstName,lastName,isActive,pictureURL);
+            return userService.createUser(email,hashedPassword,userName,isActive);
         }catch (Exception ex){
             throw new UserDAOException("Could not create users with email " + email,ex);
         }
     }
 
     @Override
-    public void updateUser(User user, String email, String password, String firstName, String lastName, boolean isActive, File pictureURL) throws UserDAOException {
+    public void updateUser(User user, String email, String password, String userName, boolean isActive) throws UserDAOException {
         try{
-            userService.updateUser(user, email, password, firstName, lastName, isActive, pictureURL);
+            userService.updateUser(user, email, password,userName, isActive);
         }catch (Exception ex){
             throw new UserDAOException("Could not update users with id " + user.getId(),ex);
         }

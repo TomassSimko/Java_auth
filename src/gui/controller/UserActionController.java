@@ -5,7 +5,6 @@ import be.User;
 import bll.exceptions.UserDAOException;
 import bll.exceptions.UserManagerException;
 import bll.exceptions.UserServiceException;
-import bll.utitls.cryptography.CryptoEngine;
 import bll.utitls.validations.NotificationHelper;
 import bll.utitls.validations.ValidationErrorType;
 import bll.utitls.validations.ValidationHelper;
@@ -95,9 +94,7 @@ public class UserActionController implements Initializable {
                         email.getText().trim(),
                         password.getText().trim(),
                         first_name.getText().trim(),
-                        last_name.getText().trim(),
-                        isActive.selectedProperty().getValue(),
-                        sendFile
+                        isActive.selectedProperty().getValue()
                 );
                 closeAndUpdate();
             }
@@ -106,9 +103,7 @@ public class UserActionController implements Initializable {
                     email.getText().trim(),
                     password.getText().trim(),
                     first_name.getText().trim(),
-                    last_name.getText().trim(),
-                    isActive.isSelected(),
-                    sendFile
+                    isActive.isSelected()
             );
             closeAndUpdate();
         }
@@ -128,10 +123,8 @@ public class UserActionController implements Initializable {
         password.setText(currentUser.getPassword());
         password.setEditable(false);
         email.setText(currentUser.getEmail());
-        first_name.setText(currentUser.getFirstName());
-        last_name.setText(currentUser.getLastName());
+        first_name.setText(currentUser.getUserName());
         isActive.selectedProperty().set(currentUser.isActive());
-        file_absolute_path.setText(currentUser.getPictureURL());
        // roles_box.setValue(currentUser.getRoles());
         confirm_action.setText("UPDATE");
         labelUserAction.setText("Edit user");

@@ -8,7 +8,6 @@ import bll.exceptions.UserManagerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.File;
 import java.util.List;
 public class UserModel {
     private final IUserManager userManager;

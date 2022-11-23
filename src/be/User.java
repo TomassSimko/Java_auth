@@ -11,13 +11,13 @@ public class User implements Serializable {
     private Boolean activated;
     private List<Role> roles;
 
-    public User(Integer id, String email, String password, String userName, Boolean activated,List<Role> roles){
+    public User(){};
+    public User(Integer id, String email, String password, String userName, Boolean activated){
         this.id = id;
         this.email = email;
         this.password = password;
         this.userName = userName;
         this.activated = activated;
-        this.roles = roles;
     }
     public Integer getId() {
         return id;
@@ -45,6 +45,9 @@ public class User implements Serializable {
     }
     public boolean isActive() {
         return activated;
+    }
+    public void setIsActive(boolean isActive){
+        this.activated = isActive;
     }
     public List<Role> getRoles() {
         return roles;

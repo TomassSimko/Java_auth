@@ -5,7 +5,6 @@ import be.User;
 import dal.db.DbConnection;
 import dal.repositories.interfaces.IUserDAO;
 
-import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +14,8 @@ public class UserDAO implements IUserDAO {
 
     private final Connection conn;
 
+  //  private final DbConnection test2;
+
     private static final String TABLE_USER = "user";
     private static final String COLUMN_USER_ID = "id";
     private static final String COLUMN_USERS_EMAIL = "email";
@@ -22,48 +23,59 @@ public class UserDAO implements IUserDAO {
     private static final String COLUMN_USER_USERNAME = "username";
     private static final String COLUMN_USER_IS_ACTIVE = "is_active";
 
-    public UserDAO(Connection connection)  {
+    public UserDAO( Connection connection)  {
         this.conn = connection;
+        //this.test2 = test;
     }
-
-    // try to introduce user dao factory
 
     public List<User> getUsers() throws Exception {
         List<User> userList = new ArrayList<>();
 
         try (conn) {
-            String sql = """
-                    SELECT DISTINCT *
-                    FROM user u
-                    INNER JOIN user_role ur ON u.id = ur.user_id\s
-                    INNER JOIN role r ON ur.role_id = r.id""";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            String sql = "SELECT * FROM " + TABLE_USER;
 
-          //  HashMap<Integer,Role> roleHashMap = getRoleHashMap();
-           // List<Role> list = new ArrayList<>(roleHashMap.values());
-            List<Role> list = new ArrayList<>();
+            PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
-                var id =  rs.getInt(1);
-                var email =    rs.getString(2);
-                var password =  rs.getString(3);
-                var username = rs.getString(4);
-                var activated =   rs.getBoolean(5);
-                //var role = roleHashMap.get(rs.getInt(7));
-
-               // list.add(role);
-                userList.add(new User(id,email,password,username,activated,list));
-
+                userList.add(instantiateUser(rs));
             }
         }
+//        }catch (SQLException ex){
+//            ex.printStackTrace();
+//        }finally{
+//            DbConnection.closeStatement(st);
+//            DbConnection.closeResultSet(rs);
+//        }
         return userList;
     }
 
-    private User instantiateUser(ResultSet rs,User user) throws SQLException{
+    private User instantiateUser(ResultSet rs) throws SQLException{
         User obj = new User();
         obj.setId(rs.getInt(1));
-
+        obj.setEmail(rs.getString(2));
+        obj.setPassword(rs.getString(3));
+        obj.setUserName(rs.getString(4));
+        obj.setIsActive(rs.getBoolean(5));
+        return obj;
     }
+
+    //            st = conn.prepareStatement("SELECT DISTINCT " +
+//                    "                    FROM user u " +
+//                    "                    INNER JOIN user_role ur ON u.id = ur.user_ids " +
+//                    "                    INNER JOIN role r ON ur.role_id = r.id");
+//            String sql = """
+//                    SELECT DISTINCT *
+//                    FROM user u
+//                    INNER JOIN user_role ur ON u.id = ur.user_id\s
+//                    INNER JOIN role r ON ur.role_id = r.id""";
+
+
+    // Statement stmt = conn.createStatement();
+    // ResultSet rs = stmt.executeQuery(sql);
+
+    //  HashMap<Integer,Role> roleHashMap = getRoleHashMap();
+    // List<Role> list = new ArrayList<>(roleHashMap.values());
 
 
     // TODO : FIX RETURNING CREATE USER
@@ -125,13 +137,13 @@ public class UserDAO implements IUserDAO {
     }
 
     private HashMap<Integer, Role> getRoleHashMap() throws Exception {
-     //   RoleDAO roleDAO = new RoleDAO(DbConnection);
-       // List<Role> fetchedRoles = roleDAO.getAllRoles();
-        HashMap<Integer,Role> roleHashMap = new HashMap<>();
+//        RoleDAO roleDAO = new RoleDAO();
+//        List<Role> fetchedRoles = roleDAO.getAllRoles();
+      HashMap<Integer,Role> roleHashMap = new HashMap<>();
 //        for (Role role: fetchedRoles) {
 //            if(!roleHashMap.containsKey(role.getId())) {
-//                roleHashMap.put(role.getId(),role);
-//            }
+//               roleHashMap.put(role.getId(),role);
+//           }
 //        }
         return roleHashMap;
     }

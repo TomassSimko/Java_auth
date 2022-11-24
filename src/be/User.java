@@ -60,5 +60,7 @@ public class User implements Serializable {
     public int getRolesSize(){
         return roles.size();
     }
-
+    public void setRoles( HashMap<Integer,Role> roles){
+        this.roles = roles;
+    }
 }

@@ -9,12 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
-public class UserModel {
+public class UserModel implements IUserModel{
     private final IUserManager userManager;
     private ObservableList<User> userList;
 
-    public UserModel() throws UserManagerException {
+    public UserModel() throws UserManagerException, UserDAOException {
         this.userManager = new UserManager();
+        getUserList();
     }
 
     public ObservableList<User> getUserList() throws UserDAOException {

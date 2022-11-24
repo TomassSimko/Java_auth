@@ -1,4 +1,4 @@
-package bll.utitls.validations;
+package bll.utitls;
 
 import be.User;
 import java.util.List;

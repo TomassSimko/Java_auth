@@ -52,7 +52,7 @@ public class UsersController implements Initializable {
 
     private UserModel userModel;
 
-    public UsersController() throws UserManagerException{
+    public UsersController() throws UserManagerException, UserDAOException {
         this.userModel = new UserModel();
     }
 

@@ -69,11 +69,7 @@
                     </TableColumn>
                     <TableColumn fx:id="password_col" editable="false" maxWidth="4000.0" prefWidth="40.0" text="Password">
                     </TableColumn>
-                    <TableColumn fx:id="first_name" editable="false" maxWidth="4000.0" prefWidth="40.0" text="First name">
-                    </TableColumn>
-                    <TableColumn fx:id="last_name" editable="false" maxWidth="4000.0" prefWidth="40.0" text="Last name">
-                    </TableColumn>
-                    <TableColumn fx:id="blob" editable="false" maxWidth="4000.0" prefWidth="40.0" text="Profile Picture URL">
+                    <TableColumn fx:id="first_name" editable="false" maxWidth="4000.0" prefWidth="40.0" text="User name">
                     </TableColumn>
                     <TableColumn fx:id="isActive" editable="false" maxWidth="2000.0" prefWidth="40.0" text="isActive">
                     </TableColumn>

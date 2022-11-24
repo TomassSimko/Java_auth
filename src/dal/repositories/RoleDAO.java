@@ -19,19 +19,13 @@ import java.util.logging.Logger;
 
 public class RoleDAO implements IRoleDAO {
 
-    private final Connection cnn;
-
     private static final String TABLE_ROLE = "role";
     private static final String COLUMN_ROLE_ID = "id";
     private static final String COLUMN_NAME = "name";
 
-    public RoleDAO(Connection connection) {
-       this.cnn = connection;
-    }
-
     public List<Role> getAllRoles() throws Exception{
         List<Role> roleList = new ArrayList<>();
-        try (cnn) {
+       try (Connection cnn = DbConnection.getConnection()) {
             String sql = "SELECT * FROM " + TABLE_ROLE;
             Statement stmt = cnn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

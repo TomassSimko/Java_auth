@@ -5,7 +5,7 @@ import be.User;
 import bll.exceptions.UserDAOException;
 import bll.exceptions.UserManagerException;
 import bll.exceptions.UserServiceException;
-import bll.utitls.validations.NotificationHelper;
+import bll.utitls.NotificationHelper;
 import bll.utitls.validations.ValidationErrorType;
 import bll.utitls.validations.ValidationHelper;
 import gui.models.RoleModel;
@@ -65,6 +65,8 @@ public class UserActionController implements Initializable {
             this.userModel = new UserModel();
             this.roleModel = new RoleModel();
         } catch (UserManagerException e) {
+            throw new RuntimeException(e);
+        } catch (UserDAOException e) {
             throw new RuntimeException(e);
         }
 

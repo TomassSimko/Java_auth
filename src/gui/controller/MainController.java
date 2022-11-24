@@ -51,22 +51,24 @@ public class MainController implements Initializable {
             this.userModel =  new UserModel();
         } catch (UserManagerException e) {
             throw new RuntimeException(e);
+        } catch (UserDAOException e) {
+            throw new RuntimeException(e);
         }
 
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
-        ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
+       // ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
     }
     public void btnDashboard(ActionEvent event) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
-        ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
+       // ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
     }
     public void btnUsersOnClick(ActionEvent event) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardUsers.fxml");
-       ((UsersController)fxmlLoader.getController()).setUserModel(userModel);
+      // ((UsersController)fxmlLoader.getController()).setUserModel(userModel);
     }
     public void btnLogOutOnClick(ActionEvent event) {
         FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardBase.fxml");
-       ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
+      // ((DashboardController)fxmlLoader.getController()).setUserModel(userModel);
     }
 
     private FXMLLoader loadFxmlPage(String path) {

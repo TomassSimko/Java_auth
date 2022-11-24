@@ -6,8 +6,9 @@ import java.util.regex.Pattern;
 public class ValidationHelper {
 
     public static boolean validateEmail(String email) {
-        Matcher matcher = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE).matcher(email);
-        return matcher.find();
+//        Matcher matcher = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE).matcher(email);
+//        return matcher.find();
+        return true;
     }
 
     /*
@@ -22,7 +23,8 @@ public class ValidationHelper {
     *
     * */
     public static boolean validatePassword(String password) {
-        return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+//        return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+        return true;
     }
 
     public static boolean validateFullName(String fullName) {

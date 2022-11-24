@@ -5,11 +5,10 @@ import bll.exceptions.UserDAOException;
 import bll.exceptions.UserManagerException;
 import bll.utitls.cryptography.CryptoEngine;
 import bll.utitls.cryptography.ICryptoEngine;
-import bll.utitls.validations.SearchHelper;
+import bll.utitls.SearchHelper;
 import dal.IUserService;
 import dal.UserService;
 
-import java.io.File;
 import java.util.List;
 
 public class UserManager implements IUserManager {

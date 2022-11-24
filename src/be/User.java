@@ -1,6 +1,8 @@
 package be;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class User implements Serializable {
@@ -9,15 +11,18 @@ public class User implements Serializable {
     private String password;
     private String userName;
     private Boolean activated;
-    private List<Role> roles;
+    private HashMap<Integer,Role> roles;
 
-    public User(){};
-    public User(Integer id, String email, String password, String userName, Boolean activated){
+    public User(){
+        this.roles = new HashMap<>();
+    };
+    public User(Integer id, String email, String password, String userName, Boolean activated,HashMap<Integer,Role> roles){
         this.id = id;
         this.email = email;
         this.password = password;
         this.userName = userName;
         this.activated = activated;
+        this.roles = roles;
     }
     public Integer getId() {
         return id;
@@ -49,7 +54,11 @@ public class User implements Serializable {
     public void setIsActive(boolean isActive){
         this.activated = isActive;
     }
-    public List<Role> getRoles() {
+    public HashMap<Integer,Role> getRoles() {
         return roles;
     }
+    public int getRolesSize(){
+        return roles.size();
+    }
+
 }

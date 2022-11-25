@@ -1,5 +1,6 @@
 package dal.repositories.interfaces;
 
+import be.Role;
 import be.User;
 import bll.exceptions.UserDAOException;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface IUserDAO {
     List<User> getUsers() throws Exception;
-    User createUser(String email, String passwordHash, String username, boolean isActive) throws Exception;
+    User createUser(String email, String passwordHash, String username, boolean isActive,List<Role> roles) throws Exception;
     void updateUser(User user, String email, String passwordHash, String username,boolean isActive) throws Exception;
     void deleteUser(User currentUser) throws Exception;
 }

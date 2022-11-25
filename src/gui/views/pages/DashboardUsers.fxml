@@ -73,6 +73,7 @@
                     </TableColumn>
                     <TableColumn fx:id="isActive" editable="false" maxWidth="2000.0" prefWidth="40.0" text="isActive">
                     </TableColumn>
+               <TableColumn fx:id="roles" editable="false" maxWidth="2000.0" prefWidth="40.0" text="Roles" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

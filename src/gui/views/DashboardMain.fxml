@@ -23,6 +23,7 @@
                     <AnchorPane prefHeight="183.0" prefWidth="127.0">
                         <Button fx:id="dashboardRoute" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutY="13.0" minHeight="53.0" mnemonicParsing="false" onAction="#btnDashboard" prefHeight="53.0" prefWidth="127.0" styleClass="menuButton" text="Dashboard" />
                         <Button alignment="BASELINE_LEFT" contentDisplay="TOP" layoutX="-1.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnUsersOnClick" prefHeight="78.0" prefWidth="127.0" styleClass="menuButton" text="Users" />
+                  <Button alignment="BASELINE_LEFT" contentDisplay="TOP" layoutY="94.0" mnemonicParsing="false" onAction="#btnRolesOnClick" prefHeight="78.0" prefWidth="127.0" styleClass="menuButton" text="Roles" />
                     </AnchorPane>
                <Button fx:id="lblLogOut" alignment="BASELINE_LEFT" contentDisplay="TOP" layoutX="-1.0" layoutY="470.0" mnemonicParsing="false" onAction="#btnLogOutOnClick" prefHeight="40.0" prefWidth="128.0" text="Log out">
                   <styleClass>

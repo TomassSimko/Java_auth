@@ -1,25 +1,32 @@
 package bll;
 
+import be.Role;
 import be.User;
 import bll.exceptions.UserDAOException;
 import bll.exceptions.UserManagerException;
 import bll.utitls.cryptography.CryptoEngine;
 import bll.utitls.cryptography.ICryptoEngine;
 import bll.utitls.SearchHelper;
+import dal.IRoleService;
 import dal.IUserService;
+import dal.RoleService;
 import dal.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserManager implements IUserManager {
 
     private final IUserService userService;
+    private final IRoleService roleService;
     private final SearchHelper searchHelper;
     private final ICryptoEngine cryptoEngine;
 
     public UserManager() throws UserManagerException {
         try {
             this.userService = new UserService();
+            this.roleService = new RoleService();
+
         } catch (Exception e) {
             throw new UserManagerException("Could not retrieve services",e);
         }
@@ -35,10 +42,23 @@ public class UserManager implements IUserManager {
         }
     }
     @Override
-    public User createUser(String email, String password, String userName, boolean isActive) throws UserDAOException {
+    public User createUser(String email, String password, String userName, boolean isActive,List<String> roles) throws Exception {
+        // fetch all roles if the one exist and then construct new role
+      //  List<Role> fetchedRoles = roleService.getRoles(); // change to get get Role by name
+
+        List<Role> createdRoles = new ArrayList<>();
+        for (String role : roles
+             ) {
+            Role fetchedRole = roleService.getRoleByName(role);
+            if(fetchedRole != null){
+               return null;
+            }
+            createdRoles.add(fetchedRole);
+        }
+
         String hashedPassword = cryptoEngine.Hash(password);
         try{
-            return userService.createUser(email,hashedPassword,userName,isActive);
+            return userService.createUser(email,hashedPassword,userName,isActive,createdRoles);
         }catch (Exception ex){
             throw new UserDAOException("Could not create users with email " + email,ex);
         }

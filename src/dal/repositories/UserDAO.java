@@ -69,7 +69,7 @@ public class UserDAO implements IUserDAO {
     }
 
     // TODO : FIX RETURNING CREATE USER
-    public User createUser(String email, String passwordHash, String username, boolean isActive) throws Exception {
+    public User createUser(String email, String passwordHash, String username, boolean isActive,List<Role> roles) throws Exception {
         User createdUser = null;
         try (Connection cnn = DbConnection.getConnection()) {
             String sql = "INSERT INTO " + TABLE_USER + "("
@@ -78,18 +78,28 @@ public class UserDAO implements IUserDAO {
                     + COLUMN_USER_USERNAME + ","
                     + COLUMN_USER_IS_ACTIVE +
                     ")"
-                    + "VALUES (?,?,?,?,?,?,?)";
+                    + "VALUES (?,?,?,?)";
 
-            PreparedStatement preparedStatement = cnn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = cnn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, passwordHash);
             preparedStatement.setString(3, username);
-            preparedStatement.setBoolean(5, isActive);
+            preparedStatement.setBoolean(4, isActive);
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-         //  createdUser = new User(id, email, passwordHash, firstName, lastName, isActive, photoFile, roles, pictureURL.getAbsolutePath());
+            createdUser = new User(id, email, passwordHash,username, isActive, roles);
+
+            for (Role r:roles
+                 ) {
+                String insertRole = "INSERT INTO user_role(user_id,role_id) VALUES (?,?)";
+                PreparedStatement p = cnn.prepareStatement(insertRole);
+                p.setInt(1,id);
+                p.setInt(2,r.getId());
+                p.executeUpdate();
+            }
+
        }
         return createdUser;
     }

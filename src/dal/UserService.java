@@ -1,5 +1,6 @@
 package dal;
 
+import be.Role;
 import be.User;
 import dal.repositories.DAOFactory;
 import dal.repositories.UserDAO;
@@ -17,8 +18,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User createUser(String email, String password, String userName, boolean isActive) throws Exception {
-        return userDAO.createUser(email, password, userName, isActive);
+    public User createUser(String email, String password, String userName, boolean isActive,List<Role> roles) throws Exception {
+        return userDAO.createUser(email, password, userName, isActive,roles);
     }
 
     @Override

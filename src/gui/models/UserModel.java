@@ -1,5 +1,6 @@
 package gui.models;
 
+import be.Role;
 import be.User;
 import bll.IUserManager;
 import bll.UserManager;
@@ -23,8 +24,8 @@ public class UserModel implements IUserModel{
         return userList = FXCollections.observableArrayList(fetchedUsers);
     }
 
-    public void createUser(String email, String password, String userName, boolean isActive) throws UserDAOException {
-        User fetchedUser = userManager.createUser(email,password,userName,isActive);
+    public void createUser(String email, String password, String userName, boolean isActive,List<String> roles) throws Exception {
+        User fetchedUser = userManager.createUser(email,password,userName,isActive,roles);
         userList.add(fetchedUser);
     }
 

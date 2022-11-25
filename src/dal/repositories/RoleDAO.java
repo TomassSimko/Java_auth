@@ -1,21 +1,12 @@
 package dal.repositories;
 
 import be.Role;
-import be.User;
 import dal.db.DbConnection;
 import dal.repositories.interfaces.IRoleDAO;
-
-import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class RoleDAO implements IRoleDAO {
 
@@ -37,6 +28,20 @@ public class RoleDAO implements IRoleDAO {
             }
         }
         return roleList;
+    }
+
+    public Role getRoleByName(String name) throws Exception{
+        Role role = null;
+        try (Connection cnn = DbConnection.getConnection()) {
+            String sql = "SELECT * FROM role AS r WHERE r.name= ?";
+            PreparedStatement preparedStatement = cnn.prepareStatement(sql);
+            preparedStatement.setString(1,name);
+            ResultSet rs = preparedStatement.executeQuery(sql);
+            while (rs.next()) {
+                role = new Role(rs.getInt("id"),rs.getString("name"));
+            }
+        }
+        return role;
     }
 
 }

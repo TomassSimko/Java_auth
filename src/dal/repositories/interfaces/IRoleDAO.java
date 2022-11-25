@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IRoleDAO {
     List<Role> getAllRoles() throws Exception;
+    Role getRoleByName(String name) throws Exception;
 }

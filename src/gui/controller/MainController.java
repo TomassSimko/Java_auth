@@ -84,4 +84,8 @@ public class MainController implements Initializable {
 
         return fxmlLoader;
     }
+
+    public void btnRolesOnClick(ActionEvent event) {
+        FXMLLoader fxmlLoader = loadFxmlPage("../views/pages/DashboardUsers.fxml");
+    }
 }

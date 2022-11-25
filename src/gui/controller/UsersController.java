@@ -1,5 +1,6 @@
 package gui.controller;
 
+import be.Role;
 import be.User;
 import bll.exceptions.UserDAOException;
 import bll.exceptions.UserManagerException;
@@ -22,6 +23,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
@@ -46,6 +48,9 @@ public class UsersController implements Initializable {
     private TableColumn<User, String> email_col;
     @FXML
     private TableColumn<User, Boolean> isActive;
+
+    @FXML
+    private TableColumn<User, List<Role>> roles;
 
     @FXML
     private TextField search_field;

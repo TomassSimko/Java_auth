@@ -11,18 +11,15 @@ public class User implements Serializable {
     private String password;
     private String userName;
     private Boolean activated;
-    private HashMap<Integer,Role> roles;
+    private List<Role> role;
 
-    public User(){
-        this.roles = new HashMap<>();
-    };
-    public User(Integer id, String email, String password, String userName, Boolean activated,HashMap<Integer,Role> roles){
+    public User(Integer id, String email, String password, String userName, Boolean activated,List<Role> role){
         this.id = id;
         this.email = email;
         this.password = password;
         this.userName = userName;
         this.activated = activated;
-        this.roles = roles;
+        this.role = role;
     }
     public Integer getId() {
         return id;
@@ -54,13 +51,10 @@ public class User implements Serializable {
     public void setIsActive(boolean isActive){
         this.activated = isActive;
     }
-    public HashMap<Integer,Role> getRoles() {
-        return roles;
+    public List<Role> getRoles() {
+        return role;
     }
     public int getRolesSize(){
-        return roles.size();
-    }
-    public void setRoles( HashMap<Integer,Role> roles){
-        this.roles = roles;
+        return role.size();
     }
 }

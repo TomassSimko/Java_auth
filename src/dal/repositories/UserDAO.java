@@ -27,44 +27,45 @@ public class UserDAO implements IUserDAO {
 
     public List<User> getUsers() throws Exception {
         List<User> userList = new ArrayList<>();
-        var roleMap = getRoleHashMap();
+        HashMap<Integer,Role> roleMap = getRoleHashMap();
+
         try(Connection conn = DbConnection.getConnection()){
-            String sql = "SELECT DISTINCT *\n" +
-                    " FROM user u \n" +
-                    " INNER JOIN user_role ur ON u.id = ur.user_id\n" +
-                    " INNER JOIN role r ON ur.role_id = r.id;";
+            String sql = "SELECT * FROM user";
+            String sqlJoin = "SELECT * FROM user_role";
+
             preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement2 = conn.prepareStatement(sqlJoin,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
             ResultSet rs = preparedStatement.executeQuery(sql);
-
-
-            HashMap<Integer, Role> map = new HashMap<>();
-
+            ResultSet rsJoin = preparedStatement2.executeQuery(sqlJoin);
             while (rs.next()) {
-                    //userList.add(instantiateUser(rs,roleMap));
-                    Role role = map.get(rs.getInt("role_id"));;
-
-                    if(role == null){
-                        role = new Role(rs.getInt("role_id"),rs.getString("name"));
-                        map.put(rs.getInt("role_id"),role);
-                    }
-                    userList.add(instantiateUser(rs,map));
+                    userList.add(instantiateUser(rs,rsJoin,roleMap));
             }
         }
 
-        return userList.stream().distinct().collect(Collectors.toList());
+        return userList;
     }
 
-    private User instantiateUser(ResultSet rs,HashMap<Integer,Role> role) throws SQLException{
-        User obj = new User();
+    private User instantiateUser(ResultSet rs,ResultSet rsJoin,HashMap<Integer,Role> role) throws SQLException{
+        int id = rs.getInt("id");
+        String email = rs.getString("email");
+        String psw = rs.getString("password");
+        String userName = rs.getString("username");
+        boolean isActive = rs.getBoolean("is_active");
 
-        obj.setId(rs.getInt("id"));
-        obj.setEmail(rs.getString("email"));
-        obj.setPassword(rs.getString("password"));
-        obj.setUserName(rs.getString("username"));
-        obj.setIsActive(rs.getBoolean("is_active"));
-        obj.setRoles(role);
+        List<Role> roleList = new ArrayList<>();
 
-        return obj;
+        while(rsJoin.next()){
+            int userId = rsJoin.getInt("user_id");
+            int roleId = rsJoin.getInt("role_id");
+            if(id == userId){
+                roleList.add(role.get(roleId));
+            }
+
+        }
+        rsJoin.beforeFirst();
+
+        return new User(id,email,psw,userName,isActive,roleList);
     }
 
     // TODO : FIX RETURNING CREATE USER
